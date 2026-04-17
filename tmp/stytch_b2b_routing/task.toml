@@ -1,0 +1,12 @@
+[task]
+name = "b2b_discovery_routing"
+description = "Implement Stytch B2B Discovery Routing in Python"
+difficulty = "multi-step sequential commands sets"
+
+[environment]
+image = "stytch-b2b-discovery:latest"
+build_context = "environment"
+
+[verifier]
+type = "python"
+script = "test/test_final_state.py"
