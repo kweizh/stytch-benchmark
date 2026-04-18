@@ -1,0 +1,46 @@
+{
+    "id": "38727d78-e481-4881-8590-dd022a230690",
+    "started_at": "2026-04-18T14:20:24.665246",
+    "finished_at": "2026-04-18T14:36:54.131131",
+    "n_total_trials": 13,
+    "stats": {
+        "n_trials": 13,
+        "n_errors": 1,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 12,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.6923076923076923
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "stytch_b2b_discovery__NWUEgwX",
+                            "stytch_fraud_aware_login__aNp5wU8",
+                            "stytch_passkeys__gLtWdUX"
+                        ],
+                        "1.0": [
+                            "stytch_b2b_jit_provisioning__vFbFAwQ",
+                            "stytch_b2b_sso_saml__FLaRNPh",
+                            "stytch_b2c_magic_link__mqqxeZK",
+                            "stytch_oauth_google__vQFsU7s",
+                            "stytch_otp_sms__PKGDWo5",
+                            "stytch_passkeys_auth__s87v7RW",
+                            "stytch_fraud_aware__Tajkvgb",
+                            "stytch_mcp_auth__9dLeB4G",
+                            "stytch_session_mgmt__CuDUVVj"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "stytch_connected_apps_pkce__Apbxk7k"
+                    ]
+                }
+            }
+        }
+    }
+}

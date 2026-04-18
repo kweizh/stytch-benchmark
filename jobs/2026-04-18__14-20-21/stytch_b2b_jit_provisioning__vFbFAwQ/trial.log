@@ -1,0 +1,72 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s pochi-v0.6.7 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Stytch B2B JIT Provisioning with Allowed Tenants
+
+## Background
+Stytch's B2B Authentication product allows configuring Just-In-Time (JIT) Provisioning for organizations. You need to restrict JIT provisioning so that only members authenticating via specific OAuth tenants can join the organization automatically.
+
+## Requirements
+Write a Python script `setup_jit.py` that uses the `requests` library to update a Stytch B2B Organization's settings.
+- The script must accept the organization ID as a command-line argument.
+- It should make a `PUT` request to the Stytch test environment API: `https://test.stytch.com/v1/b2b/organizations/<organization_id>`.
+- Set `oauth_tenant_jit_provisioning` to `RESTRICTED`.
+- Set `allowed_oauth_tenants` to allow `slack` (with tenant ID `SLACK-123`) and `github` (with tenant ID `12345`).
+- Use Basic Authentication with Project ID `project-test-00000000-0000-0000-0000-000000000000` and Secret `secret-test-11111111-1111-1111-1111-111111111111`.
+- Print the status code of the response to stdout.
+
+## Constraints
+- Project path: `/home/user/stytch_project`
+- The script must be named `setup_jit.py` and placed in the project path.
+- Use the `requests` library for HTTP calls.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

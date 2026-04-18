@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776493607.4405057,
+            "stop": 1776493610.3270593
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_login_endpoint",
+                "status": "passed",
+                "duration": 2.6625112160108984,
+                "start": 1776493607.45981,
+                "stop": 1776493610.1242225,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_authenticate_endpoint",
+                "status": "passed",
+                "duration": 0.20094442201661877,
+                "start": 1776493610.1252103,
+                "stop": 1776493610.3267581,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
