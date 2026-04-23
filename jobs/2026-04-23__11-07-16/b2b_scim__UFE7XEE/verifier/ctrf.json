@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 0,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776914008.4187784,
+            "stop": 1776914008.4658654
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_scim_output_exists_and_valid",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007185027934610844,
+                "start": 1776914008.443639,
+                "stop": 1776914008.4598248,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_scim_output_exists_and_valid():\n>       assert os.path.isfile(OUTPUT_FILE), f\"Expected {OUTPUT_FILE} to exist.\"\nE       AssertionError: Expected /home/user/app/scim_output.json to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7e6e74930220>('/home/user/app/scim_output.json')\nE        +    where <function isfile at 0x7e6e74930220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:40: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_organization_created",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005055390065535903,
+                "start": 1776914008.4600675,
+                "stop": 1776914008.4628491,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_organization_created():\n>       with open(OUTPUT_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/app/scim_output.json'\n\ntests/test_final_state.py:54: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_scim_connection_created",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00048807705752551556,
+                "start": 1776914008.4630313,
+                "stop": 1776914008.465696,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_scim_connection_created():\n>       with open(OUTPUT_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/app/scim_output.json'\n\ntests/test_final_state.py:65: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

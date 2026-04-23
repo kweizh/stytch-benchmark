@@ -1,0 +1,45 @@
+{
+    "id": "0f442de3-af74-4576-9bc4-d8d6a12f21b9",
+    "started_at": "2026-04-23T10:44:02.955395",
+    "finished_at": "2026-04-23T10:51:00.429886",
+    "n_total_trials": 12,
+    "stats": {
+        "n_trials": 12,
+        "n_errors": 1,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 11,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.5
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "b2c_magic_link__XbFehrR",
+                            "mcp_auth__A2MkoEG",
+                            "otp_sms__YBkctkN",
+                            "passkeys_auth__Lgcnzht",
+                            "session_mgmt__u4RYW36",
+                            "b2c_totp__2FfNweG"
+                        ],
+                        "0.0": [
+                            "passkeys__8jsQ9Rj",
+                            "b2b_org_settings__D5LNR9E",
+                            "b2b_scim__CRXJRKC",
+                            "b2c_session_revoke__NLGrSqD",
+                            "step_up_mfa__JNiuiU7"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "connected_apps_pkce__9agwUu7"
+                    ]
+                }
+            }
+        }
+    }
+}

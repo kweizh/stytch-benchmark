@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1776914000.845615,
+            "stop": 1776914003.5147276
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_totp_flow",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 2.62842905591242,
+                "start": 1776914000.8668008,
+                "stop": 1776914003.514432,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_totp_flow(start_app):\n        email = f\"test_{uuid.uuid4().hex[:8]}@example.com\"\n    \n        # Step 1: Create user\n        status, data = make_post_request('http://localhost:3000/users', {'email': email})\n        assert status in (200, 201), f\"Expected 200 or 201 for /users, got {status}. Response: {data}\"\n        assert 'user_id' in data, f\"Expected 'user_id' in /users response, got: {data}\"\n        user_id = data['user_id']\n    \n        # Step 2: Enroll TOTP\n        status, data = make_post_request('http://localhost:3000/totp/enroll', {'user_id': user_id})\n>       assert status == 200, f\"Expected 200 for /totp/enroll, got {status}. Response: {data}\"\nE       AssertionError: Expected 200 for /totp/enroll, got 201. Response: {'totp_id': 'totp-test-a1f0efd4-9bb3-40f2-91d0-93846a763439', 'secret': '363N425EVNNEQCTOM7ANY4IXDIIKVD63'}\nE       assert 201 == 200\n\ntests/test_final_state.py:88: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
