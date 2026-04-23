@@ -5,10 +5,60 @@
 5:I[36064,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 6:I[81497,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 7:I[42654,["/stytch-benchmark/_next/static/chunks/ca023ad85cd7aeee.js","/stytch-benchmark/_next/static/chunks/2ad5122eae704b1a.js","/stytch-benchmark/_next/static/chunks/2f5b534ce7cd3d34.js","/stytch-benchmark/_next/static/chunks/be08138953094657.js"],"TasksPageClient"]
-11:I[9986,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+16:I[9986,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 :HL["/stytch-benchmark/_next/static/chunks/8d80139e6c5729e7.css","style"]
 :HL["/stytch-benchmark/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-8:T63c,# Implement Stytch B2C Magic Link Signup and Login
+8:T467,# Update B2B Organization Settings
+
+## Background
+You need to update the settings for a Stytch B2B organization using the Stytch Node.js SDK.
+
+## Requirements
+- You have a Node.js project at `/home/user/app` with `stytch` installed.
+- Create a Node.js script `update_org.js` in `/home/user/app`.
+- The script should use the `stytch` SDK to update a B2B organization.
+- It should read `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.
+- It should take the `organization_id` as the first command-line argument.
+- The script must update the organization's `auth_methods` to `RESTRICTED` and `allowed_auth_methods` to `['sso', 'magic_link']`.
+- It must also update `email_jit_provisioning` to `RESTRICTED`.
+
+## Implementation Guide
+1. Go to `/home/user/app`.
+2. Create `update_org.js`.
+3. Instantiate `stytch.B2BClient`.
+4. Call `client.organizations.update({ organization_id, auth_methods: 'RESTRICTED', allowed_auth_methods: ['sso', 'magic_link'], email_jit_provisioning: 'RESTRICTED' })`.
+
+## Constraints
+- Project path: /home/user/app
+- The script should log "Organization updated successfully" upon success.
+9:T5bb,# B2B SCIM Endpoint Setup
+
+## Background
+You are building an automated user provisioning pipeline for a B2B organization using Stytch's SCIM API. You need to create a Node.js script that programmatically provisions a new organization and sets up a SCIM connection for it.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app` and install the `stytch` SDK.
+- Write a script `setup_scim.js` that uses the Stytch B2B Client.
+- The script must:
+  1. Create a new B2B Organization with `organization_name` "Acme SCIM Org" and a unique slug (e.g., `acme-scim-org-<timestamp>`).
+  2. Create a SCIM connection for this organization with `display_name` "Acme SCIM Connection" and `identity_provider` "okta".
+  3. Write a JSON file to `/home/user/app/scim_output.json` containing:
+     - `organization_id`
+     - `connection_id`
+     - `base_url`
+     - `bearer_token` (from the created SCIM connection)
+
+## Implementation Guide
+1. Run `npm init -y` and `npm install stytch` in `/home/user/app`.
+2. Create `/home/user/app/setup_scim.js`.
+3. Use the SDK to instantiate `new stytch.B2BClient({ project_id: process.env.STYTCH_PROJECT_ID, secret: process.env.STYTCH_SECRET })`.
+4. Call `client.organizations.create(...)` and then `client.scim.connection.create(...)`.
+5. Write the extracted properties to `scim_output.json`.
+
+## Constraints
+- **Project path**: `/home/user/app`
+- Do not hardcode the `STYTCH_PROJECT_ID` or `STYTCH_SECRET`; use environment variables.
+a:T63c,# Implement Stytch B2C Magic Link Signup and Login
 
 ## Background
 You are building a Node.js Express application and need to implement a passwordless authentication flow using Stytch's Email Magic Links. This allows users to sign up or log in by clicking a link sent to their email.
@@ -35,7 +85,52 @@ You are building a Node.js Express application and need to implement a passwordl
 - STYTCH_PROJECT_ID and STYTCH_SECRET will be provided in the environment.
 
 ## Integrations
-- Stytch9:T5de,# Stytch Connected Apps PKCE Implementation
+- Stytchb:T603,# Secure Session Revocation with Local JWTs
+
+## Background
+You have an Express.js application at `/home/user/app` that uses the Stytch Node.js SDK for B2C authentication.
+The app uses local JWT verification (`authenticateJwtLocal`) in the `/profile` endpoint to minimize network calls.
+However, there is a security vulnerability: when a user logs out via `/logout`, the session is revoked in the Stytch backend and cookies are cleared, but the local JWT remains cryptographically valid for up to 5 minutes. If an attacker intercepts the JWT before logout, they can still use it to access `/profile` until it expires.
+
+## Requirements
+1. Update the `/logout` endpoint to extract the `session_id` from the user's JWT and add it to the provided `revokedSessions` Set (an in-memory blocklist) before revoking the session.
+2. Update the `/profile` endpoint to check if the authenticated session's `session_id` is in the `revokedSessions` Set. If it is, return a `401` status code with the JSON response `{"error": "Session revoked"}`.
+
+## Implementation Guide
+1. In `/logout`, use `client.sessions.authenticateJwtLocal({ session_jwt: req.cookies.stytch_session_jwt })` to decode the JWT and get the `session.session_id`, then add it to `revokedSessions`.
+2. In `/profile`, after verifying the JWT, check `revokedSessions.has(session.session_id)`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm start`
+- Port: 3000
+- You must use the `revokedSessions` Set. Do not change `/profile` to use a network call (`authenticate`).c:T56f,# Stytch B2C TOTP Flow API
+
+## Background
+Implement a TOTP authenticator app enrollment and verification flow for a B2C application using Express.js and the Stytch Node.js SDK.
+
+## Requirements
+Create an Express REST API with the following endpoints:
+- `POST /users`: Accepts JSON `{ "email": "user@example.com" }`. Creates a Stytch B2C user and returns `{ "user_id": "..." }`.
+- `POST /totp/enroll`: Accepts JSON `{ "user_id": "..." }`. Creates a TOTP instance for the user using Stytch, and returns `{ "totp_id": "...", "secret": "..." }` (extract the base32 secret from the Stytch response).
+- `POST /totp/verify`: Accepts JSON `{ "user_id": "...", "totp_code": "..." }`. Authenticates the TOTP code using Stytch, creating a session. Returns `{ "session_token": "..." }`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` that sets up the Express server.
+4. Configure the Stytch B2C client using the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+5. Implement the three endpoints, ensuring they return the exact JSON keys required.
+6. Start the server on port 3000.
+
+## Constraints
+- Project path: /home/user/app
+- Start command: node index.js
+- Port: 3000
+- The Stytch client must use the B2C environment (test environment is fine, derived from the project ID).
+
+## Integrations
+- Stytchd:T5de,# Stytch Connected Apps PKCE Implementation
 
 ## Background
 Stytch Connected Apps allows your application to act as an OAuth/OIDC Authorization Server. For public clients, the Authorization Code Flow with PKCE is mandatory. You need to implement the PKCE utilities and token exchange logic in Node.js.
@@ -54,7 +149,7 @@ Stytch Connected Apps allows your application to act as an OAuth/OIDC Authorizat
 - Do not use external libraries for PKCE or HTTP requests.
 
 ## Integrations
-- Nonea:T67c,# Stytch OTP SMS Authentication with Node.js
+- Nonee:T67c,# Stytch OTP SMS Authentication with Node.js
 
 ## Background
 Stytch provides a robust API for passwordless authentication. In this task, you will create a Node.js CLI script using the Stytch Node.js SDK to send a One-Time Passcode (OTP) via SMS to a user and authenticate the OTP code.
@@ -86,7 +181,7 @@ Stytch provides a robust API for passwordless authentication. In this task, you 
 - The script must output only the requested ID (`phone_id` or `user_id`) to stdout on success, without any additional text.
 
 ## Integrations
-- Stytchb:T5a3,# Stytch Passkeys with Express
+- Stytchf:T5a3,# Stytch Passkeys with Express
 
 ## Background
 Create an Express REST API that integrates Stytch WebAuthn (Passkeys) for authentication using the Stytch Node.js SDK.
@@ -106,7 +201,7 @@ Create an Express REST API that integrates Stytch WebAuthn (Passkeys) for authen
 - Project path: `/home/user/app`
 - Start command: `node server.js`
 - Port: 3000
-- Return the exact JSON response returned by the Stytch SDK (or the Stytch error object if it throws).c:T46d,# Verify Stytch B2C Session
+- Return the exact JSON response returned by the Stytch SDK (or the Stytch error object if it throws).10:T46d,# Verify Stytch B2C Session
 
 ## Background
 Stytch is a developer-first identity platform. In this task, you will use the Stytch Node.js SDK to verify a B2C `session_token`.
@@ -130,15 +225,38 @@ Stytch is a developer-first identity platform. In this task, you will use the St
 - Do not hardcode project ID or secret; use `STYTCH_PROJECT_ID` and `STYTCH_SECRET`.
 
 ## Integrations
-- None0:{"P":null,"b":"lfhChUtL_GhponHZIGZ7P","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/stytch-benchmark/_next/static/chunks/8d80139e6c5729e7.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/stytch-benchmark/_next/static/chunks/ca023ad85cd7aeee.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/stytch-benchmark/_next/static/chunks/2ad5122eae704b1a.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L7",null,{"tasksData":[{"taskName":"b2b_org_settings","instruction":"","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2b_org_settings__wSW6vhu","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":174.466,"latency_breakdown":{"env_setup":26.494,"agent_setup":33.373,"agent_exec":76.498,"verifier":4.055},"taskName":"b2b_org_settings","jobId":"wSW6vhu","exec_duration":76.498}]},{"taskName":"b2b_rbac_middleware","instruction":"","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2b_rbac_middleware__yL9REYd","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":188.231,"latency_breakdown":{"env_setup":26.326,"agent_setup":32.547,"agent_exec":87.03,"verifier":11.931},"taskName":"b2b_rbac_middleware","jobId":"yL9REYd","exec_duration":87.03}]},{"taskName":"b2b_scim","instruction":"","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2b_scim__orLcCy3","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":172.604,"latency_breakdown":{"env_setup":26.032,"agent_setup":33.134,"agent_exec":75.206,"verifier":3.74},"taskName":"b2b_scim","jobId":"orLcCy3","exec_duration":75.206}]},{"taskName":"b2c_magic_link","instruction":"$8","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"b2c_magic_link__mqqxeZK","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":216.622,"latency_breakdown":{"env_setup":4.156,"agent_setup":15.364,"agent_exec":174.981,"verifier":8.093},"taskName":"b2c_magic_link","jobId":"mqqxeZK","exec_duration":174.981},{"job_name":"2026-04-23__01-50-03","trial_name":"b2c_magic_link__tFhRpVF","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":218.88,"latency_breakdown":{"env_setup":26.196,"agent_setup":33.121,"agent_exec":133.43,"verifier":5.108},"taskName":"b2c_magic_link","jobId":"tFhRpVF","exec_duration":133.43}]},{"taskName":"b2c_session_revoke","instruction":"","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2c_session_revoke__QWamWmW","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":146.143,"latency_breakdown":{"env_setup":26.524,"agent_setup":32.497,"agent_exec":67.689,"verifier":3.81},"taskName":"b2c_session_revoke","jobId":"QWamWmW","exec_duration":67.689}]},{"taskName":"b2c_totp","instruction":"","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2c_totp__RoejsWj","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":168.741,"latency_breakdown":{"env_setup":33.604,"agent_setup":20.849,"agent_exec":88.154,"verifier":6.577},"taskName":"b2c_totp","jobId":"RoejsWj","exec_duration":88.154}]},{"taskName":"connected_apps_pkce","instruction":"$9","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"connected_apps_pkce__Apbxk7k","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":39.05,"latency_breakdown":{"env_setup":11.535,"agent_setup":10.311,"agent_exec":null,"verifier":null},"taskName":"connected_apps_pkce","jobId":"Apbxk7k","exec_duration":39.05}]},{"taskName":"mcp_auth","instruction":"# Stytch MCP Auth Layer\n\n## Background\nYou are building an MCP (Model Context Protocol) server that requires authentication. You will use Stytch as the identity provider. The server needs a Node.js script to verify incoming B2B session JWTs.\n\n## Requirements\n- Implement a function `verifyAgentToken(jwt)` in `/home/user/mcp_server/mcp_auth.js`.\n- The function should use the `stytch` Node.js SDK (`stytch.B2BClient`).\n- It must authenticate a `session_jwt`.\n- Return the `member_session` object if successful, or throw an error if invalid.\n- Read `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.\n\n## Implementation Guide\n1. Initialize a Node.js project in `/home/user/mcp_server`.\n2. Install the `stytch` package.\n3. Create `/home/user/mcp_server/mcp_auth.js` and implement the `verifyAgentToken` function.\n4. Export the function using `module.exports = { verifyAgentToken };`.\n\n## Constraints\n- Project path: `/home/user/mcp_server`\n- Use `stytch` SDK version 10 or later.\n\n## Integrations\n- None","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"mcp_auth__9dLeB4G","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":107.034,"latency_breakdown":{"env_setup":4.119,"agent_setup":16.813,"agent_exec":65.419,"verifier":6.746},"taskName":"mcp_auth","jobId":"9dLeB4G","exec_duration":65.419}]},{"taskName":"otp_sms","instruction":"$a","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"otp_sms__PKGDWo5","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":203.175,"latency_breakdown":{"env_setup":4.079,"agent_setup":16.109,"agent_exec":148.046,"verifier":21.073},"taskName":"otp_sms","jobId":"PKGDWo5","exec_duration":148.046}]},{"taskName":"passkeys","instruction":"# Stytch Passkey Registration\n\n## Background\nStytch enables passwordless authentication via Passkeys (WebAuthn). The first step to register a Passkey is to generate the `public_key_credential_creation_options` from the backend.\n\n## Requirements\nWrite a Node.js script `/home/user/app/index.js` that:\n1. Imports the `stytch` SDK.\n2. Initializes the Stytch `Client` using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.\n3. Reads a `user_id` from the first command-line argument (`process.argv[2]`).\n4. Calls the `client.webauthn.registerStart` method with the provided `user_id`, `domain: \"example.com\"`, and `return_passkey_credential_options: true`.\n5. Prints the `public_key_credential_creation_options` property from the response as a JSON string to standard output.\n\n## Constraints\n- Project path: `/home/user/app`\n- The `stytch` SDK is already installed in `/home/user/app`.\n- The script must be named `index.js` and be executable via `node index.js <user_id>`.\n\n## Integrations\n- Stytch","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"passkeys__gLtWdUX","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":134.336,"latency_breakdown":{"env_setup":3.919,"agent_setup":16.82,"agent_exec":91.836,"verifier":6.789},"taskName":"passkeys","jobId":"gLtWdUX","exec_duration":91.836}]},{"taskName":"passkeys_auth","instruction":"$b","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"passkeys_auth__s87v7RW","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":198.339,"latency_breakdown":{"env_setup":3.686,"agent_setup":21.164,"agent_exec":145.839,"verifier":13.409},"taskName":"passkeys_auth","jobId":"s87v7RW","exec_duration":145.839}]},{"taskName":"session_mgmt","instruction":"$c","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"session_mgmt__CuDUVVj","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":105.488,"latency_breakdown":{"env_setup":3.943,"agent_setup":17.384,"agent_exec":59.535,"verifier":5.966},"taskName":"session_mgmt","jobId":"CuDUVVj","exec_duration":59.535}]}]}]]}],["$Ld","$Le"],"$Lf"]}],{},null,false,false]},null,false,false]},null,false,false],"$L10",false]],"m":"$undefined","G":["$11",[]],"S":true}
-12:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-13:"$Sreact.suspense"
-15:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
-17:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
-d:["$","script","script-0",{"src":"/stytch-benchmark/_next/static/chunks/2f5b534ce7cd3d34.js","async":true,"nonce":"$undefined"}]
-e:["$","script","script-1",{"src":"/stytch-benchmark/_next/static/chunks/be08138953094657.js","async":true,"nonce":"$undefined"}]
-f:["$","$L12",null,{"children":["$","$13",null,{"name":"Next.MetadataOutlet","children":"$@14"}]}]
-10:["$","$1","h",{"children":[null,["$","$L15",null,{"children":"$L16"}],["$","div",null,{"hidden":true,"children":["$","$L17",null,{"children":["$","$13",null,{"name":"Next.Metadata","children":"$L18"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
-16:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-14:null
-18:[["$","title","0",{"children":"Stytch Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Stytch tasks, measuring success rate and execution time with high precision."}]]
+- None11:T51a,# Stytch Step-Up MFA
+
+## Background
+In sensitive operations like financial transfers, it's common to require Step-Up Authentication (MFA). You will build an Express.js endpoint that uses the Stytch Node.js SDK to enforce this.
+
+## Requirements
+- Create an Express.js server in `/home/user/app`.
+- Implement a `POST /transfer` endpoint that accepts a JSON body containing a `session_token`.
+- Use the `stytch` Node.js SDK (B2C Client) to authenticate the session.
+- If the session is invalid, return a `401 Unauthorized` status code.
+- If the session is valid but has fewer than 2 authentication factors, return a `403 Forbidden` status code with the JSON response `{"error": "Step-up MFA required"}`.
+- If the session is valid and has 2 or more authentication factors, return a `200 OK` status code with the JSON response `{"success": true}`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` that initializes the Stytch B2C client using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+4. Implement the `POST /transfer` endpoint to check `session.authentication_factors.length`.
+5. Start the server on port 3000.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `node index.js`
+- Port: 30000:{"P":null,"b":"9dyb1SSBvksAtOio-Ytaa","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/stytch-benchmark/_next/static/chunks/8d80139e6c5729e7.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/stytch-benchmark/_next/static/chunks/ca023ad85cd7aeee.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/stytch-benchmark/_next/static/chunks/2ad5122eae704b1a.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L7",null,{"tasksData":[{"taskName":"b2b_org_settings","instruction":"$8","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2b_org_settings__wSW6vhu","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":174.466,"latency_breakdown":{"env_setup":26.494,"agent_setup":33.373,"agent_exec":76.498,"verifier":4.055},"taskName":"b2b_org_settings","jobId":"wSW6vhu","exec_duration":76.498}]},{"taskName":"b2b_scim","instruction":"$9","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2b_scim__orLcCy3","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":172.604,"latency_breakdown":{"env_setup":26.032,"agent_setup":33.134,"agent_exec":75.206,"verifier":3.74},"taskName":"b2b_scim","jobId":"orLcCy3","exec_duration":75.206}]},{"taskName":"b2c_magic_link","instruction":"$a","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2c_magic_link__tFhRpVF","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":218.88,"latency_breakdown":{"env_setup":26.196,"agent_setup":33.121,"agent_exec":133.43,"verifier":5.108},"taskName":"b2c_magic_link","jobId":"tFhRpVF","exec_duration":133.43},{"job_name":"2026-04-18__14-20-21","trial_name":"b2c_magic_link__mqqxeZK","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":216.622,"latency_breakdown":{"env_setup":4.156,"agent_setup":15.364,"agent_exec":174.981,"verifier":8.093},"taskName":"b2c_magic_link","jobId":"mqqxeZK","exec_duration":174.981}]},{"taskName":"b2c_session_revoke","instruction":"$b","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2c_session_revoke__QWamWmW","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":146.143,"latency_breakdown":{"env_setup":26.524,"agent_setup":32.497,"agent_exec":67.689,"verifier":3.81},"taskName":"b2c_session_revoke","jobId":"QWamWmW","exec_duration":67.689}]},{"taskName":"b2c_totp","instruction":"$c","trials":[{"job_name":"2026-04-23__01-50-03","trial_name":"b2c_totp__RoejsWj","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":168.741,"latency_breakdown":{"env_setup":33.604,"agent_setup":20.849,"agent_exec":88.154,"verifier":6.577},"taskName":"b2c_totp","jobId":"RoejsWj","exec_duration":88.154}]},{"taskName":"connected_apps_pkce","instruction":"$d","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"connected_apps_pkce__Apbxk7k","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":39.05,"latency_breakdown":{"env_setup":11.535,"agent_setup":10.311,"agent_exec":null,"verifier":null},"taskName":"connected_apps_pkce","jobId":"Apbxk7k","exec_duration":39.05}]},{"taskName":"mcp_auth","instruction":"# Stytch MCP Auth Layer\n\n## Background\nYou are building an MCP (Model Context Protocol) server that requires authentication. You will use Stytch as the identity provider. The server needs a Node.js script to verify incoming B2B session JWTs.\n\n## Requirements\n- Implement a function `verifyAgentToken(jwt)` in `/home/user/mcp_server/mcp_auth.js`.\n- The function should use the `stytch` Node.js SDK (`stytch.B2BClient`).\n- It must authenticate a `session_jwt`.\n- Return the `member_session` object if successful, or throw an error if invalid.\n- Read `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.\n\n## Implementation Guide\n1. Initialize a Node.js project in `/home/user/mcp_server`.\n2. Install the `stytch` package.\n3. Create `/home/user/mcp_server/mcp_auth.js` and implement the `verifyAgentToken` function.\n4. Export the function using `module.exports = { verifyAgentToken };`.\n\n## Constraints\n- Project path: `/home/user/mcp_server`\n- Use `stytch` SDK version 10 or later.\n\n## Integrations\n- None","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"mcp_auth__9dLeB4G","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":107.034,"latency_breakdown":{"env_setup":4.119,"agent_setup":16.813,"agent_exec":65.419,"verifier":6.746},"taskName":"mcp_auth","jobId":"9dLeB4G","exec_duration":65.419}]},{"taskName":"otp_sms","instruction":"$e","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"otp_sms__PKGDWo5","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":203.175,"latency_breakdown":{"env_setup":4.079,"agent_setup":16.109,"agent_exec":148.046,"verifier":21.073},"taskName":"otp_sms","jobId":"PKGDWo5","exec_duration":148.046}]},{"taskName":"passkeys","instruction":"# Stytch Passkey Registration\n\n## Background\nStytch enables passwordless authentication via Passkeys (WebAuthn). The first step to register a Passkey is to generate the `public_key_credential_creation_options` from the backend.\n\n## Requirements\nWrite a Node.js script `/home/user/app/index.js` that:\n1. Imports the `stytch` SDK.\n2. Initializes the Stytch `Client` using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.\n3. Reads a `user_id` from the first command-line argument (`process.argv[2]`).\n4. Calls the `client.webauthn.registerStart` method with the provided `user_id`, `domain: \"example.com\"`, and `return_passkey_credential_options: true`.\n5. Prints the `public_key_credential_creation_options` property from the response as a JSON string to standard output.\n\n## Constraints\n- Project path: `/home/user/app`\n- The `stytch` SDK is already installed in `/home/user/app`.\n- The script must be named `index.js` and be executable via `node index.js <user_id>`.\n\n## Integrations\n- Stytch","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"passkeys__gLtWdUX","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":134.336,"latency_breakdown":{"env_setup":3.919,"agent_setup":16.82,"agent_exec":91.836,"verifier":6.789},"taskName":"passkeys","jobId":"gLtWdUX","exec_duration":91.836}]},{"taskName":"passkeys_auth","instruction":"$f","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"passkeys_auth__s87v7RW","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":198.339,"latency_breakdown":{"env_setup":3.686,"agent_setup":21.164,"agent_exec":145.839,"verifier":13.409},"taskName":"passkeys_auth","jobId":"s87v7RW","exec_duration":145.839}]},{"taskName":"session_mgmt","instruction":"$10","trials":[{"job_name":"2026-04-18__14-20-21","trial_name":"session_mgmt__CuDUVVj","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":105.488,"latency_breakdown":{"env_setup":3.943,"agent_setup":17.384,"agent_exec":59.535,"verifier":5.966},"taskName":"session_mgmt","jobId":"CuDUVVj","exec_duration":59.535}]},{"taskName":"step_up_mfa","instruction":"$11","trials":[{"job_name":"2026-04-23__09-57-04","trial_name":"step_up_mfa__dX2ise2","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":144.127,"latency_breakdown":{"env_setup":8.572,"agent_setup":20.532,"agent_exec":96.545,"verifier":3.892},"taskName":"step_up_mfa","jobId":"dX2ise2","exec_duration":96.545}]}]}]]}],["$L12","$L13"],"$L14"]}],{},null,false,false]},null,false,false]},null,false,false],"$L15",false]],"m":"$undefined","G":["$16",[]],"S":true}
+17:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+18:"$Sreact.suspense"
+1a:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
+1c:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
+12:["$","script","script-0",{"src":"/stytch-benchmark/_next/static/chunks/2f5b534ce7cd3d34.js","async":true,"nonce":"$undefined"}]
+13:["$","script","script-1",{"src":"/stytch-benchmark/_next/static/chunks/be08138953094657.js","async":true,"nonce":"$undefined"}]
+14:["$","$L17",null,{"children":["$","$18",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]
+15:["$","$1","h",{"children":[null,["$","$L1a",null,{"children":"$L1b"}],["$","div",null,{"hidden":true,"children":["$","$L1c",null,{"children":["$","$18",null,{"name":"Next.Metadata","children":"$L1d"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+1b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+19:null
+1d:[["$","title","0",{"children":"Stytch Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Stytch tasks, measuring success rate and execution time with high precision."}]]
