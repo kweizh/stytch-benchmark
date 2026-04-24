@@ -1,0 +1,60 @@
+{
+    "id": "41051ef2-3bc8-4e80-89bf-d22546ee4bab",
+    "started_at": "2026-04-24T19:56:55.469878",
+    "finished_at": "2026-04-24T20:14:13.507338",
+    "n_total_trials": 24,
+    "stats": {
+        "n_trials": 24,
+        "n_errors": 2,
+        "evals": {
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 23,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.25
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "b2c_magic_link__iA6c4Qh",
+                            "mcp_auth__UVH8Xmf",
+                            "otp_sms__AFPERLj",
+                            "passkeys_auth__tQo8SXq",
+                            "session_mgmt__VrCnZ2D",
+                            "b2b_fraud_aware_login__9X9cEQE"
+                        ],
+                        "0.0": [
+                            "passkeys__WgCV7yS",
+                            "b2b_org_settings__pziyZhD",
+                            "b2b_scim__zpbjSRH",
+                            "b2c_session_revoke__hLe8dBj",
+                            "b2c_totp__xfyE3r6",
+                            "step_up_mfa__SqMDkjT",
+                            "b2b_member_invitation__BZA2QQ6",
+                            "b2b_sso_oidc__DzqwEpj",
+                            "b2b_member_session_revocation__uUsoGzN",
+                            "b2b_organization_search__eEf22xn",
+                            "b2b_jwt_validator__MppYmxe",
+                            "b2b_delete_organization__cfxXAAQ",
+                            "b2b_sso_saml__VcoBFAi",
+                            "b2b_discovery_flow__PmPZ74D",
+                            "b2b_step_up_mfa__GdfK4MK",
+                            "b2b_totp_setup__woStqvK",
+                            "b2b_update_organization__dEXrNBS"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "RuntimeError": [
+                        "connected_apps_pkce__zd7i4Ka"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "b2b_discovery_flow__PmPZ74D"
+                    ]
+                }
+            }
+        }
+    }
+}

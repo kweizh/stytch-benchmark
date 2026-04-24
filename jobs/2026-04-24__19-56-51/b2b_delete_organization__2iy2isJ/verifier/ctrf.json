@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777049785.1072257,
+            "stop": 1777049785.7778134
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists_and_contains_org_id",
+                "status": "passed",
+                "duration": 0.0006202469812706113,
+                "start": 1777049785.3027,
+                "stop": 1777049785.303539,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_organization_is_deleted_via_amika_api",
+                "status": "passed",
+                "duration": 0.4727965850615874,
+                "start": 1777049785.303729,
+                "stop": 1777049785.777059,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

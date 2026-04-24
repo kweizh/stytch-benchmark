@@ -1,0 +1,47 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777032057.9008715,
+            "stop": 1777032059.6131833
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_script_exists",
+                "status": "passed",
+                "duration": 0.0004695808747783303,
+                "start": 1777032057.9118834,
+                "stop": 1777032057.9125583,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_uses_stytch_client",
+                "status": "passed",
+                "duration": 0.00042235106229782104,
+                "start": 1777032057.9127436,
+                "stop": 1777032057.9133,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_execution_handles_invalid_token",
+                "status": "passed",
+                "duration": 1.699318565079011,
+                "start": 1777032057.9134672,
+                "stop": 1777032059.6129587,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

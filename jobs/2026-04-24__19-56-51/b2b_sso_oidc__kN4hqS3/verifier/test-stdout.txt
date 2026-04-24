@@ -1,0 +1,62 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 12 packages in 152ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+________________ test_organization_and_oidc_connection_created _________________
+
+    def test_organization_and_oidc_connection_created():
+        trial_id = get_trial_id()
+        org_slug = f"test-org-{trial_id}"
+    
+        project_id = os.environ.get("STYTCH_B2B_PROJECT_ID")
+        secret = os.environ.get("STYTCH_B2B_SECRET")
+    
+        assert project_id and secret, "Stytch B2B credentials are not set in environment variables."
+    
+        # 1. Search for the organization
+        search_response = requests.post(
+            "https://test.stytch.com/v1/b2b/organizations/search",
+            json={
+                "query": {
+                    "operator": "AND",
+                    "operands": [
+                        {
+                            "filter_name": "organization_slug",
+                            "filter_value": org_slug
+                        }
+                    ]
+                }
+            },
+            auth=HTTPBasicAuth(project_id, secret)
+        )
+    
+>       assert search_response.status_code == 200, f"Stytch API organization search failed: {search_response.text}"
+E       AssertionError: Stytch API organization search failed: {"status_code":400,"request_id":"request-id-test-b5b65821-ce4c-4859-aec0-876a1952cd3a","error_type":"organization_search_filter_name_not_recognized","error_message":"The organization search operand filter_name was not recognized. Please see https://stytch.com/docs/b2b/api/search-organizations for request schema details and examples.","error_url":"https://stytch.com/docs/b2b/api/errors/400#organization_search_filter_name_not_recognized"}
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:45: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_configure_oidc_script_exists
+FAILED tests/test_final_state.py::test_organization_and_oidc_connection_created
+========================= 1 failed, 1 passed in 0.68s ==========================

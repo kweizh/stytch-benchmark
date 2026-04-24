@@ -1,0 +1,73 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 19ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py .FFF                                           [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_api_discovery_authenticate ________________________
+
+start_app = None
+
+    def test_api_discovery_authenticate(start_app):
+        status, response = make_post_request("/api/discovery/authenticate", {"discovery_magic_links_token": "invalid_token_123"})
+        # Stytch should return a 400 or 401 for an invalid token, and the API should proxy it
+        assert status >= 400, f"Expected error status for invalid token, got {status}"
+>       assert "error_type" in response or "status_code" in response, f"Expected Stytch error response, got {response}"
+E       AssertionError: Expected Stytch error response, got {'error': 'Token format is invalid.'}
+E       assert ('error_type' in {'error': 'Token format is invalid.'} or 'status_code' in {'error': 'Token format is invalid.'})
+
+tests/test_final_state.py:68: AssertionError
+_________________________ test_api_discovery_exchange __________________________
+
+start_app = None
+
+    def test_api_discovery_exchange(start_app):
+        status, response = make_post_request("/api/discovery/exchange", {
+            "intermediate_session_token": "invalid_session_123",
+            "organization_id": "organization-test-00000000-0000-0000-0000-000000000000"
+        })
+        assert status >= 400, f"Expected error status for invalid session, got {status}"
+>       assert "error_type" in response or "status_code" in response, f"Expected Stytch error response, got {response}"
+E       AssertionError: Expected Stytch error response, got {'error': 'Organization could not be found.'}
+E       assert ('error_type' in {'error': 'Organization could not be found.'} or 'status_code' in {'error': 'Organization could not be found.'})
+
+tests/test_final_state.py:76: AssertionError
+__________________________ test_api_discovery_create ___________________________
+
+start_app = None
+
+    def test_api_discovery_create(start_app):
+        status, response = make_post_request("/api/discovery/create", {
+            "intermediate_session_token": "invalid_session_123",
+            "organization_name": "Test Org"
+        })
+        assert status >= 400, f"Expected error status for invalid session, got {status}"
+>       assert "error_type" in response or "status_code" in response, f"Expected Stytch error response, got {response}"
+E       AssertionError: Expected Stytch error response, got {'error': 'Intermediate session could not be found.'}
+E       assert ('error_type' in {'error': 'Intermediate session could not be found.'} or 'status_code' in {'error': 'Intermediate session could not be found.'})
+
+tests/test_final_state.py:84: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_api_discovery_send
+FAILED tests/test_final_state.py::test_api_discovery_authenticate - Assertion...
+FAILED tests/test_final_state.py::test_api_discovery_exchange - AssertionErro...
+FAILED tests/test_final_state.py::test_api_discovery_create - AssertionError:...
+========================= 3 failed, 1 passed in 7.39s ==========================

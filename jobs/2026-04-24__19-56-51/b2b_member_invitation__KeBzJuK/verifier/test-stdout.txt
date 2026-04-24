@@ -1,0 +1,97 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 12 packages in 19ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py FF.                                            [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_organization_is_created _________________________
+
+    def test_organization_is_created():
+        trial_id = get_trial_id()
+        org_slug = f"acme-corp-{trial_id}"
+    
+        project_id = os.environ.get("STYTCH_B2B_PROJECT_ID")
+        secret = os.environ.get("STYTCH_B2B_SECRET")
+    
+        assert project_id and secret, "Stytch B2B credentials are not set in environment variables."
+    
+        # Use Stytch API to search for the organization
+        response = requests.post(
+            "https://test.stytch.com/v1/b2b/organizations/search",
+            json={
+                "query": {
+                    "operator": "AND",
+                    "operands": [
+                        {
+                            "filter_name": "organization_slug",
+                            "filter_value": org_slug
+                        }
+                    ]
+                }
+            },
+            auth=HTTPBasicAuth(project_id, secret)
+        )
+    
+>       assert response.status_code == 200, f"Stytch API request failed: {response.text}"
+E       AssertionError: Stytch API request failed: {"status_code":400,"request_id":"request-id-test-f4594ff7-2c84-4dae-8f46-ad0371bd8e5b","error_type":"organization_search_filter_name_not_recognized","error_message":"The organization search operand filter_name was not recognized. Please see https://stytch.com/docs/b2b/api/search-organizations for request schema details and examples.","error_url":"https://stytch.com/docs/b2b/api/errors/400#organization_search_filter_name_not_recognized"}
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:43: AssertionError
+____________________________ test_member_is_invited ____________________________
+
+    def test_member_is_invited():
+        trial_id = get_trial_id()
+        org_slug = f"acme-corp-{trial_id}"
+        email = f"new-member-{trial_id}@example.com"
+    
+        project_id = os.environ.get("STYTCH_B2B_PROJECT_ID")
+        secret = os.environ.get("STYTCH_B2B_SECRET")
+    
+        assert project_id and secret, "Stytch B2B credentials are not set in environment variables."
+    
+        # Get organization first
+        org_response = requests.post(
+            "https://test.stytch.com/v1/b2b/organizations/search",
+            json={
+                "query": {
+                    "operator": "AND",
+                    "operands": [
+                        {
+                            "filter_name": "organization_slug",
+                            "filter_value": org_slug
+                        }
+                    ]
+                }
+            },
+            auth=HTTPBasicAuth(project_id, secret)
+        )
+>       assert org_response.status_code == 200, "Failed to get organization"
+E       AssertionError: Failed to get organization
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:77: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_file_exists_and_valid
+FAILED tests/test_final_state.py::test_organization_is_created - AssertionErr...
+FAILED tests/test_final_state.py::test_member_is_invited - AssertionError: Fa...
+========================= 2 failed, 1 passed in 1.19s ==========================

@@ -1,0 +1,47 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Stytch Step-Up MFA ## Background In sensitive operations like financial transfers, it's common to require Step-Up Authentication (MFA). You will build an Express.js endpoint that uses the Stytch Node.js SDK to enforce this. ## Requirements - Create an Express.js server in `/home/user/app`. - Implement a `POST /transfer` endpoint that accepts a JSON body containing a `session_token`. - Use the `stytch` Node.js SDK (B2C Client) to authenticate the session. - If the session is invalid, return a `401 Unauthorized` status code. - If the session is valid but has fewer than 2 authentication factors, return a `403 Forbidden` status code with the JSON response `{"error": "Step-up MFA required"}`. - If the session is valid and has 2 or more authentication factors, return a `200 OK` status code with the JSON response `{"success": true}`. ## Implementation Guide 1. Initialize a Node.js project in `/home/user/app`. 2. Install `express` and `stytch`. 3. Create `index.js` that initializes the Stytch B2C client using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables. 4. Implement the `POST /transfer` endpoint to check `session.authentication_factors.length`. 5. Start the server on port 3000. ## Constraints - Project path: `/home/user/app` - Start command: `node index.js` - Port: 3000   
+
+Pochi
+💭 Thinking for 81 characters   
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /home/user/app && cd /home/user/app && npm init -y ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/app && npm install express stytch ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/app/index.js ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /logs/artifacts/code && cp /home/user/app/index.js /logs/artifacts/code/index.js && cp /home/user/app/package.json /logs/artifacts/code/package.json ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+The Express.js server with Stytch Step-Up MFA is implemented at `/home/user/app/index.js`. Here's a summary of what was built:
+
+## Project Structure
+```
+/home/user/app/
+├── index.js        # Main server file
+├── package.json    # Project manifest
+└── node_modules/   # express + stytch installed
+```
+
+## `POST /transfer` Logic
+
+| Condition | Status | Response |
+|---|---|---|
+| Invalid/missing `session_token` (Stytch throws) | `401` | `{"error": "Unauthorized"}` |
+| Valid session, `authentication_factors.length < 2` | `403` | `{"error": "Step-up MFA required"}` |
+| Valid session, `authentication_factors.length >= 2` | `200` | `{"success": true}` |
+
+## Key Implementation Details
+- **Stytch B2C Client** initialized with `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+- `client.sessions.authenticate({ session_token })` validates the token — any error (expired, invalid, missing) triggers a `401`.
+- The number of authentication factors is checked via `response.session.authentication_factors.length`.
+- Server listens on **port 3000**.
+
+## Start the server
+```bash
+STYTCH_PROJECT_ID=your_project_id STYTCH_SECRET=your_secret node index.js
+```
+
+Artifact copies saved to `/logs/artifacts/code/`.   
+  

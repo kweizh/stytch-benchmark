@@ -1,0 +1,65 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 1,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777032833.009857,
+            "stop": 1777032840.3947282
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_api_discovery_send",
+                "status": "passed",
+                "duration": 6.672216754872352,
+                "start": 1777032833.0325832,
+                "stop": 1777032839.7068162,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_discovery_authenticate",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.20341372699476779,
+                "start": 1777032839.7078605,
+                "stop": 1777032839.9280412,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_api_discovery_authenticate(start_app):\n        status, response = make_post_request(\"/api/discovery/authenticate\", {\"discovery_magic_links_token\": \"invalid_token_123\"})\n        # Stytch should return a 400 or 401 for an invalid token, and the API should proxy it\n        assert status >= 400, f\"Expected error status for invalid token, got {status}\"\n>       assert \"error_type\" in response or \"status_code\" in response, f\"Expected Stytch error response, got {response}\"\nE       AssertionError: Expected Stytch error response, got {'error': 'Token format is invalid.'}\nE       assert ('error_type' in {'error': 'Token format is invalid.'} or 'status_code' in {'error': 'Token format is invalid.'})\n\ntests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_api_discovery_exchange",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.2479207639116794,
+                "start": 1777032839.928334,
+                "stop": 1777032840.1792152,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_api_discovery_exchange(start_app):\n        status, response = make_post_request(\"/api/discovery/exchange\", {\n            \"intermediate_session_token\": \"invalid_session_123\",\n            \"organization_id\": \"organization-test-00000000-0000-0000-0000-000000000000\"\n        })\n        assert status >= 400, f\"Expected error status for invalid session, got {status}\"\n>       assert \"error_type\" in response or \"status_code\" in response, f\"Expected Stytch error response, got {response}\"\nE       AssertionError: Expected Stytch error response, got {'error': 'Organization could not be found.'}\nE       assert ('error_type' in {'error': 'Organization could not be found.'} or 'status_code' in {'error': 'Organization could not be found.'})\n\ntests/test_final_state.py:76: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_api_discovery_create",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.20959341991692781,
+                "start": 1777032840.1794176,
+                "stop": 1777032840.3944707,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_api_discovery_create(start_app):\n        status, response = make_post_request(\"/api/discovery/create\", {\n            \"intermediate_session_token\": \"invalid_session_123\",\n            \"organization_name\": \"Test Org\"\n        })\n        assert status >= 400, f\"Expected error status for invalid session, got {status}\"\n>       assert \"error_type\" in response or \"status_code\" in response, f\"Expected Stytch error response, got {response}\"\nE       AssertionError: Expected Stytch error response, got {'error': 'Intermediate session could not be found.'}\nE       assert ('error_type' in {'error': 'Intermediate session could not be found.'} or 'status_code' in {'error': 'Intermediate session could not be found.'})\n\ntests/test_final_state.py:84: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,27 @@
+/usr/local/lib/python3.12/dist-packages/stytch/core/client_base.py:42: UserWarning: Test version of Stytch not intended for production use
+  warnings.warn("Test version of Stytch not intended for production use")
+trial_id : b2b_sso_oidc__kN4hqS3
+org_name : test-org-b2b_sso_oidc__kN4hqS3
+org_slug : test-org-b2b_sso_oidc__kN4hqS3
+
+--- Creating organization ---
+HTTP status  : 200
+organization_id : organization-test-e6c12563-6036-4df6-8aaf-542a884a0d83
+
+--- Creating OIDC SSO connection ---
+HTTP status : 200
+connection_id : oidc-connection-test-a60b224b-5e35-4745-8026-61484d1753a8
+
+--- Updating OIDC SSO connection ---
+HTTP status : 200
+connection_id   : oidc-connection-test-a60b224b-5e35-4745-8026-61484d1753a8
+display_name    : My OIDC Connection
+status          : active
+issuer          : https://mock-idp.com
+client_id       : mock-client-id
+authorization_url: https://mock-idp.com/auth
+token_url       : https://mock-idp.com/token
+userinfo_url    : https://mock-idp.com/userinfo
+jwks_url        : https://mock-idp.com/jwks
+
+Done.

@@ -1,0 +1,73 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 12 packages in 26ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py EE                                             [100%]
+
+==================================== ERRORS ====================================
+________________ ERROR at setup of test_organization_is_created ________________
+
+    @pytest.fixture(scope="module", autouse=True)
+    def setup_and_run_script():
+        """Run the user script before running verifications."""
+        assert os.path.isfile(SCRIPT_FILE), f"The script {SCRIPT_FILE} does not exist."
+    
+        result = subprocess.run(
+            ["python3", "setup_saml.py"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"The script failed to execute. stderr: {result.stderr}"
+E       AssertionError: The script failed to execute. stderr: Traceback (most recent call last):
+E           File "/home/user/workspace/setup_saml.py", line 9, in <module>
+E             import stytch
+E         ModuleNotFoundError: No module named 'stytch'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'setup_saml.py'], returncode=1, stdout='', stderr='Traceback (most recent call last)...r/workspace/setup_saml.py", line 9, in <module>\n    import stytch\nModuleNotFoundError: No module named \'stytch\'\n').returncode
+
+tests/test_final_state.py:26: AssertionError
+_____________ ERROR at setup of test_saml_connection_is_configured _____________
+
+    @pytest.fixture(scope="module", autouse=True)
+    def setup_and_run_script():
+        """Run the user script before running verifications."""
+        assert os.path.isfile(SCRIPT_FILE), f"The script {SCRIPT_FILE} does not exist."
+    
+        result = subprocess.run(
+            ["python3", "setup_saml.py"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"The script failed to execute. stderr: {result.stderr}"
+E       AssertionError: The script failed to execute. stderr: Traceback (most recent call last):
+E           File "/home/user/workspace/setup_saml.py", line 9, in <module>
+E             import stytch
+E         ModuleNotFoundError: No module named 'stytch'
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', 'setup_saml.py'], returncode=1, stdout='', stderr='Traceback (most recent call last)...r/workspace/setup_saml.py", line 9, in <module>\n    import stytch\nModuleNotFoundError: No module named \'stytch\'\n').returncode
+
+tests/test_final_state.py:26: AssertionError
+=========================== short test summary info ============================
+ERROR tests/test_final_state.py::test_organization_is_created - AssertionErro...
+ERROR tests/test_final_state.py::test_saml_connection_is_configured - Asserti...
+============================== 2 errors in 0.26s ===============================
