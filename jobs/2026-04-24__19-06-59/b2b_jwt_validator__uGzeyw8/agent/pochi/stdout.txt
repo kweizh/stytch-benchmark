@@ -1,0 +1,51 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Stytch B2B Local JWT Validator ## Background Stytch B2B sessions can be represented as a `session_jwt` which has a 5-minute lifespan. Validating a JWT locally (using JWKS) is significantly faster than communicating with Stytch's API on every request. ## Requirements Write a standalone Node.js Express service that exposes an endpoint to validate incoming B2B `session_jwt` tokens locally. 1. **Endpoint**: `POST /validate` 2. **Payload**: JSON body containing `{ "session_jwt": "<token>" }`. 3. **Behavior**: * The service MUST validate the JWT locally using the Stytch Node.js SDK (`authenticateJwtLocal` method) or a standard JWT library with the Stytch JWKS endpoint. * It MUST NOT make a network call to Stytch's `authenticate` endpoint for every validation request. * If the JWT is valid, return `200 OK` with `{ "member_id": "<member_id>" }`. * If the JWT is invalid or expired, return `401 Unauthorized`. 4. **Configuration**: Use `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from the environment. ## Constraints - **Project path**: `/home/user/app` - **Start command**: `npm start` - **Port**: 3000 - **Dependencies**: Use Node.js and Express. You may use the official `stytch` SDK or a custom JWT validator. ## Integrations - Stytch   
+
+Pochi
+📋 Updating todo list (4 items) ✔ 
+💫 Executing npm init -y && npm install express stytch dotenv ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing index.js ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing test-local.js ✔ 
+💫 Executing STYTCH_B2B_PROJECT_ID=project-test-123 STYTCH_B2B_SECRET=secret-test-123 node test-local.js ✔ 
+🔧 Applying diff to test-local.js ✔ 
+💫 Executing STYTCH_B2B_PROJECT_ID=project-test-123 STYTCH_B2B_SECRET=secret-test-123 node test-local.js ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing mkdir -p /logs/artifacts/code && cp index.js package.json test-local.js /logs/artifacts/code/ ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+I have implemented the Stytch B2B Local JWT Validator service.
+
+### Key Features
+- **Express Service**: A standalone Node.js Express service listening on port 3000.
+- **Local Validation**: Uses the Stytch Node.js SDK's `authenticateJwtLocal` method to validate B2B session JWTs locally using JWKS, avoiding network calls to Stytch's API for each request.
+- **Endpoint**: `POST /validate` which accepts a `{ "session_jwt": "<token>" }` payload.
+- **Error Handling**: Returns `200 OK` with the `member_id` for valid tokens, and `401 Unauthorized` for invalid or expired tokens.
+- **Configuration**: Uses `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from environment variables.
+
+### Files Created
+- `index.js`: The main Express application logic.
+- `package.json`: Project configuration and dependencies (`express`, `stytch`, `dotenv`).
+- `test-local.js`: A script to verify the local validation logic.
+
+### How to Run
+1. Ensure the environment variables are set:
+   ```bash
+   export STYTCH_B2B_PROJECT_ID=your_project_id
+   export STYTCH_B2B_SECRET=your_secret
+   ```
+2. Start the service:
+   ```bash
+   npm start
+   ```
+3. Test the endpoint:
+   ```bash
+   curl -X POST http://localhost:3000/validate \
+     -H "Content-Type: application/json" \
+     -d '{"session_jwt": "YOUR_JWT_HERE"}'
+   ```
+
+Copies of the implementation have been saved to `/logs/artifacts/code/`.   
+  

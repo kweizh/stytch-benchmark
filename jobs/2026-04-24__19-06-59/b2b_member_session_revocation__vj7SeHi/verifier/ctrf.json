@@ -1,0 +1,30 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777049035.3781726,
+            "stop": 1777049036.3006647
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_revoke_session",
+                "status": "failed",
+                "duration": 0.5967713659629226,
+                "start": 1777049035.6699197,
+                "stop": 1777049036.300439,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def stytch_session():\n        \"\"\"Create a test organization, member, and generate a valid session_token.\"\"\"\n        trial_id = get_trial_id()\n        project_id = os.environ.get(\"STYTCH_B2B_PROJECT_ID\")\n        secret = os.environ.get(\"STYTCH_B2B_SECRET\")\n        assert project_id and secret, \"Stytch B2B credentials are missing.\"\n    \n        auth = HTTPBasicAuth(project_id, secret)\n        base_url = \"https://test.stytch.com/v1/b2b\"\n    \n        # Create Organization\n        org_slug = f\"revoke-test-org-{trial_id}\"\n        resp = requests.post(f\"{base_url}/organizations\", json={\n            \"organization_name\": org_slug,\n            \"organization_slug\": org_slug\n        }, auth=auth)\n    \n        if resp.status_code == 400 and \"organization_slug_already_exists\" in resp.text:\n            search_resp = requests.post(f\"{base_url}/organizations/search\", json={\n                \"query\": {\"operator\": \"AND\", \"operands\": [{\"filter_name\": \"organization_slug\", \"filter_value\": org_slug}]}\n            }, auth=auth)\n            org_id = search_resp.json()[\"organizations\"][0][\"organization_id\"]\n        else:\n>           assert resp.status_code in [200, 201], f\"Failed to create org: {resp.text}\"\nE           AssertionError: Failed to create org: {\"status_code\":400,\"request_id\":\"request-id-test-2df3ef80-f9bb-4442-bab1-2a9e5957234e\",\"error_type\":\"organization_slug_already_used\",\"error_message\":\"The provided organization_slug is already used in another organization.\",\"error_url\":\"https://stytch.com/docs/b2b/api/errors/400#organization_slug_already_used\"}\nE           assert 400 in [200, 201]\nE            +  where 400 = <Response [400]>.status_code\n\n/tests/test_final_state.py:51: AssertionError"
+            }
+        ]
+    }
+}

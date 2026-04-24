@@ -1,0 +1,61 @@
+{
+    "id": "e8b6fb71-ad8d-4fef-a32a-e5b85f210089",
+    "started_at": "2026-04-24T19:07:03.652441",
+    "finished_at": "2026-04-24T19:38:51.445131",
+    "n_total_trials": 24,
+    "stats": {
+        "n_trials": 24,
+        "n_errors": 3,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 23,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.2916666666666667
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "b2c_magic_link__5qQyHFe",
+                            "mcp_auth__9qjV5iE",
+                            "otp_sms__V2npHnZ",
+                            "passkeys_auth__K3XZsT3",
+                            "session_mgmt__iSduDhs",
+                            "b2c_totp__YrzB5JK",
+                            "b2b_fraud_aware_login__fZynEmG"
+                        ],
+                        "0.0": [
+                            "passkeys__Gk2HvAh",
+                            "b2b_org_settings__7kk2LHB",
+                            "b2b_scim__hk3ra6Z",
+                            "b2c_session_revoke__gaXYAtf",
+                            "step_up_mfa__DkTNTxf",
+                            "b2b_member_invitation__5P6VVQN",
+                            "b2b_sso_oidc__jGNhUSd",
+                            "b2b_member_session_revocation__ahJ3CZc",
+                            "b2b_organization_search__sP8HyPZ",
+                            "b2b_jwt_validator__KXUX7Y7",
+                            "b2b_delete_organization__B6PvdgE",
+                            "b2b_sso_saml__6nX3sds",
+                            "b2b_discovery_flow__kMNETdD",
+                            "b2b_step_up_mfa__nxLURMz",
+                            "b2b_totp_setup__HX5eaMt",
+                            "b2b_update_organization__bMunUkg"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "b2c_magic_link__5qQyHFe",
+                        "b2b_totp_setup__HX5eaMt"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "connected_apps_pkce__ErAAbQF"
+                    ]
+                }
+            }
+        }
+    }
+}

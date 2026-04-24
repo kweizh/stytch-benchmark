@@ -1,0 +1,44 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 12 packages in 38ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+______________________ test_session_revocation_blocklist _______________________
+
+start_app = None
+
+    def test_session_revocation_blocklist(start_app):
+        base_url = "http://localhost:3000"
+        session = requests.Session()
+    
+        # 1. Register
+        email = f"test-{uuid.uuid4()}@example.com"
+        password = "Password123!"
+        resp = session.post(f"{base_url}/register", json={"email": email, "password": password})
+>       assert resp.status_code == 200, f"Register failed: {resp.text}"
+E       AssertionError: Register failed: {"error":"{\"status_code\":400,\"request_id\":\"request-id-test-1ec592a7-d8c6-49fd-8800-8dba3a5ef007\",\"error_type\":\"weak_password\",\"error_message\":\"password doesn't meet our strength requirements.\",\"error_url\":\"https://stytch.com/docs/api/errors/400#weak_password\"}"}
+E       assert 400 == 200
+E        +  where 400 = <Response [400]>.status_code
+
+tests/test_final_state.py:53: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_session_revocation_blocklist - Asserti...
+============================== 1 failed in 1.95s ===============================

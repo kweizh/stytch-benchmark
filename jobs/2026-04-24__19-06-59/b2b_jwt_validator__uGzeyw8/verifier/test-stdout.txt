@@ -1,0 +1,55 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /home/user/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading cpython-3.12.12-linux-x86_64-gnu (download) (31.8MiB)
+ Downloading cpython-3.12.12-linux-x86_64-gnu (download)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 12 packages in 20ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.12, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+../../../tests/test_final_state.py E..                                   [100%]
+
+==================================== ERRORS ====================================
+_______________________ ERROR at setup of test_valid_jwt _______________________
+
+    @pytest.fixture(scope="module")
+    def stytch_session():
+        trial_id = get_trial_id()
+        project_id = os.environ.get("STYTCH_B2B_PROJECT_ID")
+        secret = os.environ.get("STYTCH_B2B_SECRET")
+        assert project_id and secret, "Stytch B2B credentials are missing."
+    
+        auth = HTTPBasicAuth(project_id, secret)
+        base_url = "https://test.stytch.com/v1/b2b"
+    
+        org_slug = f"test-jwt-org-{trial_id}"
+        resp = requests.post(f"{base_url}/organizations", json={
+            "organization_name": org_slug,
+            "organization_slug": org_slug,
+            "auth_methods": "all_allowed"
+        }, auth=auth)
+>       assert resp.status_code in [200, 201], f"Failed to create org: {resp.text}"
+E       AssertionError: Failed to create org: {"status_code":400,"request_id":"request-id-test-381776a0-c9b4-495e-a5da-572448e0feb4","error_type":"invalid_organization_auth_factor_setting","error_message":"The value provided isn't valid. Valid values are 'NOT_ALLOWED', 'RESTRICTED', or 'ALL_ALLOWED'.","error_url":"https://stytch.com/docs/b2b/api/errors/400#invalid_organization_auth_factor_setting"}
+E       assert 400 in [200, 201]
+E        +  where 400 = <Response [400]>.status_code
+
+/tests/test_final_state.py:43: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../../../tests/test_final_state.py::test_invalid_jwt
+PASSED ../../../tests/test_final_state.py::test_uses_local_validation
+ERROR ../../../tests/test_final_state.py::test_valid_jwt - AssertionError: Fa...
+========================== 2 passed, 1 error in 2.99s ==========================

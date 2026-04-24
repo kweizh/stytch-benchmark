@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777029169.147641,
+            "stop": 1777029170.9112515
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mcp_auth_file_exists",
+                "status": "passed",
+                "duration": 0.00047488196287304163,
+                "start": 1777029169.1569598,
+                "stop": 1777029169.1576357,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exports_verifyAgentToken",
+                "status": "passed",
+                "duration": 0.0852993520675227,
+                "start": 1777029169.1578248,
+                "stop": 1777029169.2433815,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_verifyAgentToken_uses_stytch",
+                "status": "passed",
+                "duration": 0.0004703009035438299,
+                "start": 1777029169.2436118,
+                "stop": 1777029169.2442093,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_verifyAgentToken_throws_on_invalid_token",
+                "status": "passed",
+                "duration": 1.6664448900846764,
+                "start": 1777029169.2443912,
+                "stop": 1777029170.9110174,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,41 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 7 packages in 34ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 4 items
+
+tests/test_final_state.py F...                                           [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_api_discovery_send ____________________________
+
+start_app = None
+
+    def test_api_discovery_send(start_app):
+        status, response = make_post_request("/api/discovery/send", {"email": "sandbox@stytch.com"})
+>       assert status == 200, f"Expected 200 OK for /api/discovery/send, got {status} with response {response}"
+E       AssertionError: Expected 200 OK for /api/discovery/send, got 400 with response {}
+E       assert 400 == 200
+
+tests/test_final_state.py:60: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_api_discovery_authenticate
+PASSED tests/test_final_state.py::test_api_discovery_exchange
+PASSED tests/test_final_state.py::test_api_discovery_create
+FAILED tests/test_final_state.py::test_api_discovery_send - AssertionError: E...
+========================= 1 failed, 3 passed in 6.19s ==========================

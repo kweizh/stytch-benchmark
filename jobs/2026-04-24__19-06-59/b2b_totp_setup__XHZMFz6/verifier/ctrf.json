@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777049413.0407956,
+            "stop": 1777049413.2543712
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_totp_info_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006454299436882138,
+                "start": 1777049413.227496,
+                "stop": 1777049413.2517593,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_totp_info_file_exists():\n>       assert os.path.isfile(INFO_FILE), f\"Expected {INFO_FILE} to exist.\"\nE       AssertionError: Expected /home/user/stytch_project/totp_info.json to exist.\nE       assert False\nE        +  where False = <function isfile at 0x700786644220>('/home/user/stytch_project/totp_info.json')\nE        +    where <function isfile at 0x700786644220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:17: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_totp_registration_active",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00048232206609100103,
+                "start": 1777049413.2519689,
+                "stop": 1777049413.254213,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_totp_registration_active():\n        \"\"\"Verify the TOTP registration is active using the Stytch API.\"\"\"\n>       with open(INFO_FILE, \"r\") as f:\n             ^^^^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/stytch_project/totp_info.json'\n\ntests/test_final_state.py:21: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

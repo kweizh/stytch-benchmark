@@ -1,0 +1,9 @@
+/usr/local/lib/python3.12/dist-packages/stytch/core/client_base.py:42: UserWarning: Test version of Stytch not intended for production use
+  warnings.warn("Test version of Stytch not intended for production use")
+Creating organization: test-org-b2b_sso_oidc__PNhRJa4
+Successfully created organization. ID: org-123
+Creating OIDC connection...
+Successfully created OIDC connection. ID: conn-456
+Updating OIDC connection with configuration...
+Successfully updated OIDC connection.
+Connection status: active

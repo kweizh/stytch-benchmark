@@ -1,0 +1,2096 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command failed
+Trial connected_apps_pkce__ErAAbQF failed: Command failed (exit 1): set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+stdout: [1;32m  Installing[0m Pochi version cli@0.6.8
+[1;32m    Checking[0m for existing Pochi installation
+[1;32m    Fetching[0m archive for Linux, version cli@0.6.8
+[1;32m    Creating[0m directory layout
+[1;32m  Extracting[0m Pochi binaries and launchers
+[1;32m  Next steps[0m Add the following to your shell profile:
+
+    bash ~/.bashrc:
+
+        export PATH="/home/user/.pochi/bin:$PATH"
+        source <(pochi --completion)
+
+    zsh ~/.zshrc:
+
+        export PATH="/home/user/.pochi/bin:$PATH"
+        source <(pochi --completion --zsh)
+
+    fish ~/.config/fish/config.fish:
+
+        fish_add_path "/home/user/.pochi/bin"
+        pochi --completion --fish | source
+
+[1;32m    Finished[0m Pochi is installed at /home/user/.pochi/bin
+mkdir: cannot create directory '/logs/agent/pochi': Permission denied
+
+stderr: None
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo mcp_auth__9qjV5iE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch MCP Auth Layer
+
+## Background
+You are building an MCP (Model Context Protocol) server that requires authentication. You will use Stytch as the identity provider. The server needs a Node.js script to verify incoming B2B session JWTs.
+
+## Requirements
+- Implement a function `verifyAgentToken(jwt)` in `/home/user/mcp_server/mcp_auth.js`.
+- The function should use the `stytch` Node.js SDK (`stytch.B2BClient`).
+- It must authenticate a `session_jwt`.
+- Return the `member_session` object if successful, or throw an error if invalid.
+- Read `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/mcp_server`.
+2. Install the `stytch` package.
+3. Create `/home/user/mcp_server/mcp_auth.js` and implement the `verifyAgentToken` function.
+4. Export the function using `module.exports = { verifyAgentToken };`.
+
+## Constraints
+- Project path: `/home/user/mcp_server`
+- Use `stytch` SDK version 10 or later.
+
+## Integrations
+- None
+EOF
+Running command: echo passkeys__Gk2HvAh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Running command: echo otp_sms__V2npHnZ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch Passkey Registration
+
+## Background
+Stytch enables passwordless authentication via Passkeys (WebAuthn). The first step to register a Passkey is to generate the `public_key_credential_creation_options` from the backend.
+
+## Requirements
+Write a Node.js script `/home/user/app/index.js` that:
+1. Imports the `stytch` SDK.
+2. Initializes the Stytch `Client` using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.
+3. Reads a `user_id` from the first command-line argument (`process.argv[2]`).
+4. Calls the `client.webauthn.registerStart` method with the provided `user_id`, `domain: "example.com"`, and `return_passkey_credential_options: true`.
+5. Prints the `public_key_credential_creation_options` property from the response as a JSON string to standard output.
+
+## Constraints
+- Project path: `/home/user/app`
+- The `stytch` SDK is already installed in `/home/user/app`.
+- The script must be named `index.js` and be executable via `node index.js <user_id>`.
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch OTP SMS Authentication with Node.js
+
+## Background
+Stytch provides a robust API for passwordless authentication. In this task, you will create a Node.js CLI script using the Stytch Node.js SDK to send a One-Time Passcode (OTP) via SMS to a user and authenticate the OTP code.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/stytch_app`.
+- Install the `stytch` package.
+- Create a CLI script `stytch_sms.js` with two commands:
+  1. `node stytch_sms.js send <phone_number>`: Sends an SMS OTP using the `stytch.Client` (B2C) `otps.sms.loginOrCreate` method and prints the resulting `phone_id` to stdout.
+  2. `node stytch_sms.js authenticate <phone_id> <code>`: Authenticates the OTP using the `otps.authenticate` method and prints the resulting `user_id` to stdout.
+- The script must read the Stytch credentials from the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+
+## Implementation Guide
+1. Run `npm init -y` and `npm install stytch` in `/home/user/stytch_app`.
+2. Create `stytch_sms.js`.
+3. Initialize the Stytch client:
+   ```javascript
+   const stytch = require('stytch');
+   const client = new stytch.Client({
+     project_id: process.env.STYTCH_PROJECT_ID,
+     secret: process.env.STYTCH_SECRET,
+   });
+   ```
+4. Implement the `send` command logic using `client.otps.sms.loginOrCreate({ phone_number })`.
+5. Implement the `authenticate` command logic using `client.otps.authenticate({ method_id, code })`.
+
+## Constraints
+- Project path: `/home/user/stytch_app`
+- The script must output only the requested ID (`phone_id` or `user_id`) to stdout on success, without any additional text.
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2c_magic_link__5qQyHFe > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Implement Stytch B2C Magic Link Signup and Login
+
+## Background
+You are building a Node.js Express application and need to implement a passwordless authentication flow using Stytch's Email Magic Links. This allows users to sign up or log in by clicking a link sent to their email.
+
+## Requirements
+- Create an Express server with two endpoints:
+  1. `POST /login`: Takes an `email` in the JSON request body. It should use the Stytch Node.js SDK to send a magic link to that email by calling `loginOrCreate`. Set both `login_magic_link_url` and `signup_magic_link_url` to `http://localhost:3000/authenticate`.
+  2. `GET /authenticate`: Accepts a `token` query parameter. It should use the Stytch Node.js SDK to authenticate the token. If successful, respond with a JSON object containing `{"success": true, "user_id": "<stytch_user_id>"}`. If it fails, respond with a 401 status code.
+- The server must listen on port 3000.
+- Use the `stytch` npm package.
+- Configure the Stytch client using the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/stytch-app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` setting up the Express server with JSON body parsing.
+4. Initialize the Stytch client using environment variables.
+5. Implement the `POST /login` and `GET /authenticate` routes as specified.
+
+## Constraints
+- Project path: `/home/user/stytch-app`
+- Start command: `node index.js`
+- Port: `3000`
+- STYTCH_PROJECT_ID and STYTCH_SECRET will be provided in the environment.
+
+## Integrations
+- Stytch
+EOF
+Not retrying trial because the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo passkeys_auth__K3XZsT3 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch Passkeys with Express
+
+## Background
+Create an Express REST API that integrates Stytch WebAuthn (Passkeys) for authentication using the Stytch Node.js SDK.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app`.
+- Install `express` and `stytch`.
+- Create `server.js` that sets up the Express server on port 3000.
+- Initialize the Stytch B2C client using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+- Implement the following POST endpoints. They should parse JSON bodies and return the raw JSON responses from the Stytch SDK.
+  - `POST /webauthn/register/start`: Accepts `user_id` and `domain`. Calls `stytchClient.webauthn.registerStart({ user_id, domain, use_base64_url_encoding: true })` and returns the response.
+  - `POST /webauthn/register`: Accepts `user_id` and `public_key_credential`. Calls `stytchClient.webauthn.register({ user_id, public_key_credential })` and returns the response.
+  - `POST /webauthn/authenticate/start`: Accepts `domain`. Calls `stytchClient.webauthn.authenticateStart({ domain })` and returns the response.
+  - `POST /webauthn/authenticate`: Accepts `public_key_credential`. Calls `stytchClient.webauthn.authenticate({ public_key_credential })` and returns the response.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `node server.js`
+- Port: 3000
+- Return the exact JSON response returned by the Stytch SDK (or the Stytch error object if it throws).
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo session_mgmt__iSduDhs > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Verify Stytch B2C Session
+
+## Background
+Stytch is a developer-first identity platform. In this task, you will use the Stytch Node.js SDK to verify a B2C `session_token`.
+
+## Requirements
+- Write a Node.js script `verify_session.js` that authenticates a Stytch B2C `session_token`.
+- Read the session token from the first command-line argument (`process.argv[2]`).
+- Use `stytch.Client` initialized with `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+- Call `client.sessions.authenticate({ session_token: token })` to verify the token.
+- Print the resulting `user_id` from the session to the standard output.
+
+## Implementation Guide
+1. Navigate to `/home/user/stytch-app`.
+2. Install the `stytch` Node.js package.
+3. Create `verify_session.js` to initialize the client and authenticate the session.
+4. Handle errors appropriately (e.g., if the token is invalid, exit gracefully).
+
+## Constraints
+- Project path: `/home/user/stytch-app`
+- The script must be executable via `node verify_session.js <token>`.
+- Do not hardcode project ID or secret; use `STYTCH_PROJECT_ID` and `STYTCH_SECRET`.
+
+## Integrations
+- None
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_org_settings__7kk2LHB > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Update B2B Organization Settings
+
+## Background
+You need to update the settings for a Stytch B2B organization using the Stytch Node.js SDK.
+
+## Requirements
+- You have a Node.js project at `/home/user/app` with `stytch` installed.
+- Create a Node.js script `update_org.js` in `/home/user/app`.
+- The script should use the `stytch` SDK to update a B2B organization.
+- It should read `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.
+- It should take the `organization_id` as the first command-line argument.
+- The script must update the organization's `auth_methods` to `RESTRICTED` and `allowed_auth_methods` to `['sso', 'magic_link']`.
+- It must also update `email_jit_provisioning` to `RESTRICTED`.
+
+## Implementation Guide
+1. Go to `/home/user/app`.
+2. Create `update_org.js`.
+3. Instantiate `stytch.B2BClient`.
+4. Call `client.organizations.update({ organization_id, auth_methods: 'RESTRICTED', allowed_auth_methods: ['sso', 'magic_link'], email_jit_provisioning: 'RESTRICTED' })`.
+
+## Constraints
+- Project path: /home/user/app
+- The script should log "Organization updated successfully" upon success.
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_scim__hk3ra6Z > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# B2B SCIM Endpoint Setup
+
+## Background
+You are building an automated user provisioning pipeline for a B2B organization using Stytch's SCIM API. You need to create a Node.js script that programmatically provisions a new organization and sets up a SCIM connection for it.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app` and install the `stytch` SDK.
+- Write a script `setup_scim.js` that uses the Stytch B2B Client.
+- The script must:
+  1. Create a new B2B Organization with `organization_name` "Acme SCIM Org" and a unique slug (e.g., `acme-scim-org-<timestamp>`).
+  2. Create a SCIM connection for this organization with `display_name` "Acme SCIM Connection" and `identity_provider` "okta".
+  3. Write a JSON file to `/home/user/app/scim_output.json` containing:
+     - `organization_id`
+     - `connection_id`
+     - `base_url`
+     - `bearer_token` (from the created SCIM connection)
+
+## Implementation Guide
+1. Run `npm init -y` and `npm install stytch` in `/home/user/app`.
+2. Create `/home/user/app/setup_scim.js`.
+3. Use the SDK to instantiate `new stytch.B2BClient({ project_id: process.env.STYTCH_PROJECT_ID, secret: process.env.STYTCH_SECRET })`.
+4. Call `client.organizations.create(...)` and then `client.scim.connection.create(...)`.
+5. Write the extracted properties to `scim_output.json`.
+
+## Constraints
+- **Project path**: `/home/user/app`
+- Do not hardcode the `STYTCH_PROJECT_ID` or `STYTCH_SECRET`; use environment variables.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2c_session_revoke__gaXYAtf > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Secure Session Revocation with Local JWTs
+
+## Background
+You have an Express.js application at `/home/user/app` that uses the Stytch Node.js SDK for B2C authentication.
+The app uses local JWT verification (`authenticateJwtLocal`) in the `/profile` endpoint to minimize network calls.
+However, there is a security vulnerability: when a user logs out via `/logout`, the session is revoked in the Stytch backend and cookies are cleared, but the local JWT remains cryptographically valid for up to 5 minutes. If an attacker intercepts the JWT before logout, they can still use it to access `/profile` until it expires.
+
+## Requirements
+1. Update the `/logout` endpoint to extract the `session_id` from the user's JWT and add it to the provided `revokedSessions` Set (an in-memory blocklist) before revoking the session.
+2. Update the `/profile` endpoint to check if the authenticated session's `session_id` is in the `revokedSessions` Set. If it is, return a `401` status code with the JSON response `{"error": "Session revoked"}`.
+
+## Implementation Guide
+1. In `/logout`, use `client.sessions.authenticateJwtLocal({ session_jwt: req.cookies.stytch_session_jwt })` to decode the JWT and get the `session.session_id`, then add it to `revokedSessions`.
+2. In `/profile`, after verifying the JWT, check `revokedSessions.has(session.session_id)`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm start`
+- Port: 3000
+- You must use the `revokedSessions` Set. Do not change `/profile` to use a network call (`authenticate`).
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2c_totp__YrzB5JK > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch B2C TOTP Flow API
+
+## Background
+Implement a TOTP authenticator app enrollment and verification flow for a B2C application using Express.js and the Stytch Node.js SDK.
+
+## Requirements
+Create an Express REST API with the following endpoints:
+- `POST /users`: Accepts JSON `{ "email": "user@example.com" }`. Creates a Stytch B2C user and returns `{ "user_id": "..." }`.
+- `POST /totp/enroll`: Accepts JSON `{ "user_id": "..." }`. Creates a TOTP instance for the user using Stytch, and returns `{ "totp_id": "...", "secret": "..." }` (extract the base32 secret from the Stytch response).
+- `POST /totp/verify`: Accepts JSON `{ "user_id": "...", "totp_code": "..." }`. Authenticates the TOTP code using Stytch, creating a session. Returns `{ "session_token": "..." }`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` that sets up the Express server.
+4. Configure the Stytch B2C client using the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+5. Implement the three endpoints, ensuring they return the exact JSON keys required.
+6. Start the server on port 3000.
+
+## Constraints
+- Project path: /home/user/app
+- Start command: node index.js
+- Port: 3000
+- The Stytch client must use the B2C environment (test environment is fine, derived from the project ID).
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo step_up_mfa__DkTNTxf > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch Step-Up MFA
+
+## Background
+In sensitive operations like financial transfers, it's common to require Step-Up Authentication (MFA). You will build an Express.js endpoint that uses the Stytch Node.js SDK to enforce this.
+
+## Requirements
+- Create an Express.js server in `/home/user/app`.
+- Implement a `POST /transfer` endpoint that accepts a JSON body containing a `session_token`.
+- Use the `stytch` Node.js SDK (B2C Client) to authenticate the session.
+- If the session is invalid, return a `401 Unauthorized` status code.
+- If the session is valid but has fewer than 2 authentication factors, return a `403 Forbidden` status code with the JSON response `{"error": "Step-up MFA required"}`.
+- If the session is valid and has 2 or more authentication factors, return a `200 OK` status code with the JSON response `{"success": true}`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` that initializes the Stytch B2C client using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+4. Implement the `POST /transfer` endpoint to check `session.authentication_factors.length`.
+5. Start the server on port 3000.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `node index.js`
+- Port: 3000
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_fraud_aware_login__fZynEmG > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch B2B Fraud-Aware Login CLI
+
+## Background
+Stytch Device Fingerprinting protects B2B applications from automated attacks and risky logins. You need to implement a simple CLI script that integrates Stytch Device Fingerprinting to evaluate a user's risk level before allowing them to log in.
+
+## Requirements
+- Create a Node.js script `login.js` in `/home/user/project`.
+- The script should receive a `telemetry_id` as the first command-line argument.
+- Initialize the Stytch B2B client using `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` environment variables.
+- The script must call the Stytch Device Fingerprinting Lookup API (e.g., via the Stytch SDK `client.fraud.fingerprints.lookup({ telemetry_id })` or by making an HTTP request to `https://test.stytch.com/v1/fraud/fingerprints/lookup` with Basic Auth using the project credentials).
+- Check the `verdict.action` from the response:
+  - If it is `"BLOCK"`, the script must print `"Access Denied: Blocked"` and exit with code 1.
+  - If it is `"CHALLENGE"`, the script must print `"MFA Required"` and exit with code 1.
+  - If it is `"ALLOW"`, the script must print `"Login Successful"` and exit with code 0.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project`.
+2. Install the `stytch` package.
+3. Create `login.js`.
+4. Read the `telemetry_id` from `process.argv[2]`.
+5. Use the Stytch B2B client to look up the fingerprint.
+6. Evaluate the verdict and print the appropriate message and exit code.
+
+## Constraints
+- Project path: `/home/user/project`
+- Ensure the script handles errors from the API gracefully (e.g., invalid telemetry ID).
+
+## Integrations
+- Stytch B2B
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_member_invitation__5P6VVQN > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch B2B Member Invitation
+
+## Background
+You have a Python project at `/home/user/project`. Create a script `invite_member.py` that initializes a Stytch B2B Organization and sends an email invitation to a new member using the Stytch Python SDK.
+
+## Requirements
+- Create a Stytch B2B Organization named `Acme Corp ${trial_id}` with slug `acme-corp-${trial_id}`.
+- Send an email invitation to `new-member-${trial_id}@example.com` to join the organization.
+- Write the resulting Organization ID and Member ID to `/home/user/project/output.json`.
+
+## Constraints
+- Project path: /home/user/project
+- Log file: /home/user/project/output.json
+- Execution script: `invite_member.py`
+- Use `stytch` Python package.
+- Do not hardcode the suffix; it must be derived from `/logs/artifacts/trial_id`.
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_sso_oidc__jGNhUSd > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Configure Stytch B2B OIDC Connection
+
+## Background
+You need to write a Python script that uses the Stytch B2B API to create a new organization and configure an OIDC SSO connection for it.
+
+## Requirements
+- Read the `trial_id` from `/logs/trial_id`.
+- Create a new B2B Organization with the name `test-org-${trial_id}` and slug `test-org-${trial_id}`.
+- Create an OIDC SSO connection for this organization with the display name `My OIDC Connection`.
+- Update the OIDC connection to include the following configuration so it becomes active:
+  - `client_id`: `mock-client-id`
+  - `client_secret`: `mock-client-secret`
+  - `issuer`: `https://mock-idp.com`
+  - `authorization_url`: `https://mock-idp.com/auth`
+  - `token_url`: `https://mock-idp.com/token`
+  - `userinfo_url`: `https://mock-idp.com/userinfo`
+  - `jwks_url`: `https://mock-idp.com/jwks`
+- The script should be named `configure_oidc.py` and saved in `/home/user/project`.
+- Run the script and save its standard output to `/home/user/project/output.log`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.log`
+- Note: Always use the `trial_id` suffix for the organization name and slug to avoid conflicts.
+
+## Integrations
+- Stytch
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_member_session_revocation__ahJ3CZc > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Implement B2B Member Session Revocation
+
+## Background
+In B2B applications, members may need to log out or administrators may need to revoke a member's session for security reasons. You need to implement a simple Node.js Express server that exposes an endpoint to revoke a specific Stytch B2B session.
+
+## Requirements
+- Create a Node.js Express server listening on port 3000.
+- Implement a `POST /revoke` endpoint that accepts a JSON body with a `session_token`.
+- The endpoint must use the Stytch Node.js SDK to revoke the provided session token using the B2B Sessions Revoke API.
+- If successful, return a 200 status code. If an error occurs, return an appropriate error status.
+
+## Constraints
+- Project path: `/home/user/project`
+- Start command: `npm start` (or `node index.js`)
+- Port: 3000
+
+## Integrations
+- Stytch B2B
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_organization_search__sP8HyPZ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# B2B Organization Search via Discovery
+
+## Background
+You need to implement a REST API endpoint that allows an authenticated user to discover and list the B2B organizations they are associated with or eligible to join. This utilizes Stytch's B2B Discovery APIs.
+
+## Requirements
+- Set up an Express.js server running on port 3000.
+- Implement a `POST /api/discovery/organizations` endpoint.
+- The endpoint must accept a JSON body with an `intermediate_session_token`.
+- Use the Stytch Node.js SDK (`stytch`) to call the B2B Discovery Organizations List method.
+- Return the discovered organizations in the response as JSON (status 200).
+- If the token is invalid or missing, propagate the error from Stytch (e.g. return 400 with the error details).
+
+## Constraints
+- Project path: `/home/user/project`
+- Start command: `node index.js`
+- Port: 3000
+- You MUST use real systems and API keys from the environment (`STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET`). NEVER use fake dependencies nor mock the target.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_jwt_validator__KXUX7Y7 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch B2B Local JWT Validator
+
+## Background
+Stytch B2B sessions can be represented as a `session_jwt` which has a 5-minute lifespan. Validating a JWT locally (using JWKS) is significantly faster than communicating with Stytch's API on every request.
+
+## Requirements
+Write a standalone Node.js Express service that exposes an endpoint to validate incoming B2B `session_jwt` tokens locally.
+
+1.  **Endpoint**: `POST /validate`
+2.  **Payload**: JSON body containing `{ "session_jwt": "<token>" }`.
+3.  **Behavior**:
+    *   The service MUST validate the JWT locally using the Stytch Node.js SDK (`authenticateJwtLocal` method) or a standard JWT library with the Stytch JWKS endpoint.
+    *   It MUST NOT make a network call to Stytch's `authenticate` endpoint for every validation request.
+    *   If the JWT is valid, return `200 OK` with `{ "member_id": "<member_id>" }`.
+    *   If the JWT is invalid or expired, return `401 Unauthorized`.
+4.  **Configuration**: Use `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from the environment.
+
+## Constraints
+- **Project path**: `/home/user/app`
+- **Start command**: `npm start`
+- **Port**: 3000
+- **Dependencies**: Use Node.js and Express. You may use the official `stytch` SDK or a custom JWT validator.
+
+## Integrations
+- Stytch
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_sso_saml__6nX3sds > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Configure SAML Connection for B2B Organization
+
+## Background
+Stytch provides robust B2B authentication features including enterprise SSO. Your task is to write a Python script that creates a new B2B organization and configures a SAML connection for it using the Stytch B2B API.
+
+## Requirements
+- Read the `trial_id` from `/logs/trial_id`.
+- Create a new Stytch B2B organization with the name `SAML Org ${trial_id}` and the slug `saml-org-${trial_id}`.
+- Create a SAML connection for this organization.
+- Update the SAML connection with the IdP SSO URL `https://idp.example.com/sso` and a dummy IdP entity ID `https://idp.example.com/entity`.
+- The script must be saved to `/home/user/workspace/setup_saml.py` and execute successfully.
+
+## Constraints
+- Project path: `/home/user/workspace`
+- Use `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` environment variables for authentication.
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_discovery_flow__kMNETdD > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Implement Stytch B2B Discovery Flow API
+
+## Background
+Stytch B2B provides a "Discovery" flow that allows End Users to authenticate without specifying an Organization in advance. This is done via a Discovery Magic Link flow. After an End User is authenticated, an Intermediate Session is returned along with a list of associated Organizations. The user can then exchange this session to log into an existing organization or create a new one.
+
+## Requirements
+Implement an Express.js REST API in `/home/user/project` that uses the `stytch` Node.js SDK to provide the following endpoints:
+
+1. **`POST /api/discovery/send`**: 
+   - Accepts JSON: `{ "email": "..." }`
+   - Calls Stytch to send a discovery magic link to the provided email.
+   - Returns the Stytch API response.
+
+2. **`POST /api/discovery/authenticate`**: 
+   - Accepts JSON: `{ "discovery_magic_links_token": "..." }`
+   - Calls Stytch to authenticate the discovery magic link token.
+   - Returns the `intermediate_session_token` and `discovered_organizations`.
+
+3. **`POST /api/discovery/exchange`**: 
+   - Accepts JSON: `{ "intermediate_session_token": "...", "organization_id": "..." }`
+   - Calls Stytch to exchange the intermediate session for a full member session in the specified organization.
+   - Returns the full `member_session`.
+
+4. **`POST /api/discovery/create`**: 
+   - Accepts JSON: `{ "intermediate_session_token": "...", "organization_name": "..." }`
+   - Calls Stytch to create a new organization using the intermediate session.
+   - Returns the newly created `organization` and `member_session`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Start command: `node index.js`
+- Port: 3000
+- Read Stytch credentials from `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` environment variables.
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_delete_organization__B6PvdgE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Delete a B2B Organization
+
+## Background
+You have a Stytch B2B project configured. Your task is to write a Python script that safely deletes a specific B2B organization using the Stytch API.
+
+## Requirements
+- Create a Python script `/home/user/project/delete_org.py`.
+- The script must read the organization ID from `/logs/org_id.txt`.
+- Use the `stytch` Python SDK to delete this organization.
+- Write the deleted organization ID to `/home/user/project/output.log` after successful deletion.
+- The script must use the environment variables `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` for authentication.
+
+## Implementation Guide
+1. Initialize a Python project in `/home/user/project`.
+2. Install the `stytch` SDK.
+3. Write `delete_org.py` to perform the deletion.
+4. Run the script and verify the output log.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.log`
+- Ensure the script runs successfully with `python delete_org.py`.
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_totp_setup__HX5eaMt > /logs/artifacts/trial_id
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch B2B TOTP Setup
+
+## Background
+Stytch provides B2B authentication features, including Multi-Factor Authentication (MFA) via Time-Based One-Time Passcodes (TOTP). This task requires you to write a Python script that sets up TOTP for a specific B2B member.
+
+## Requirements
+Write a Python script at `/home/user/stytch_project/setup_totp.py` that accomplishes the following:
+1. Accepts two command-line arguments: `organization_id` and `member_id`.
+2. Initializes a Stytch B2B client using the `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` environment variables.
+3. Creates a new TOTP instance for the member using the Stytch B2B API.
+4. Extracts the TOTP `secret` from the response.
+5. Uses the `pyotp` library to generate a valid 6-digit TOTP code based on the `secret`.
+6. Authenticates the TOTP instance using the generated code to complete the enrollment process.
+7. Writes a JSON file to `/home/user/stytch_project/totp_info.json` containing the `totp_registration_id` and the first recovery code from the creation response. The JSON structure should be:
+   ```json
+   {
+     "totp_registration_id": "<registration_id>",
+     "recovery_code": "<first_recovery_code>"
+   }
+   ```
+
+## Implementation Guide
+1. Ensure you have `stytch` and `pyotp` installed.
+2. In `setup_totp.py`, instantiate the `stytch.B2BClient`.
+3. Call `client.totps.create(...)` passing the `organization_id` and `member_id`.
+4. From the response, get the `secret` and `recovery_codes`.
+5. Use `pyotp.TOTP(secret).now()` to generate the current code.
+6. Call `client.totps.authenticate(...)` passing the `organization_id`, `member_id`, and `code`.
+7. Save the required information to `totp_info.json`.
+
+## Constraints
+- Project path: /home/user/stytch_project
+- Log file: /home/user/stytch_project/output.log
+- You must use the `trial_id` from `/logs/trial_id` if you need to create any uniquely named entities, though this script only requires the provided IDs.
+
+## Integrations
+- stytch
+EOF
+Running command: echo b2b_step_up_mfa__nxLURMz > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Stytch B2B Step-up MFA
+
+## Background
+You are building a B2B SaaS application using Express.js and the Stytch Node.js SDK. You need to protect a sensitive route so that it requires multi-factor authentication (MFA).
+
+## Requirements
+- You have an existing Express app in `/home/user/app`.
+- Implement the `POST /sensitive-action` endpoint in `/home/user/app/server.js`.
+- The endpoint must read the `stytch_session` cookie.
+- Authenticate the session using `client.sessions.authenticate({ session_token })`.
+- If the session is invalid or missing, return HTTP 401 with `{"error": "Unauthorized"}`.
+- If the session is valid, check if the member has completed MFA. For this task, MFA is considered complete if the `member_session.authentication_factors` array contains at least two factors, or contains a factor of type `otp` or `totp`.
+- If MFA is not complete, return HTTP 403 with `{"error": "MFA required"}`.
+- If MFA is complete, return HTTP 200 with `{"success": true}`.
+
+## Implementation Guide
+1. Modify `/home/user/app/server.js` to implement the `POST /sensitive-action` route.
+2. Use the initialized `stytchClient` provided in the file.
+3. Read the session token from `req.cookies.stytch_session`.
+4. Handle Stytch API errors gracefully (return 401 for invalid tokens).
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm start`
+- Port: 3000
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo b2b_update_organization__bMunUkg > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Update Stytch B2B Organization Authentication Methods
+
+## Background
+You have a Stytch B2B project. You need to create a new B2B organization and then update its settings to restrict the allowed authentication methods. By default, organizations allow all authentication methods (`ALL_ALLOWED`). Your goal is to restrict them to only Single Sign-On (SSO) and Magic Links.
+
+## Requirements
+- Write a Python script `update_org.py` that uses the `stytch` Python library.
+- Read `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from environment variables to initialize the `stytch.B2BClient`.
+- Read the `trial_id` from `/logs/trial_id`.
+- Create a new B2B organization with the name `test-org-${trial_id}` and slug `test-org-${trial_id}`.
+- Update the organization's settings so that `auth_methods` is set to `RESTRICTED` and `allowed_auth_methods` is set to `["sso", "magic_link"]`.
+
+## Constraints
+- Project path: `/home/user/stytch_project`
+- Script to run: `python3 /home/user/stytch_project/update_org.py`
+
+## Integrations
+- Stytch
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached

@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777049052.739824,
+            "stop": 1777049054.6859655
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_session_revocation_blocklist",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 1.6420336461160332,
+                "start": 1777049053.0034368,
+                "stop": 1777049054.6853077,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_session_revocation_blocklist(start_app):\n        base_url = \"http://localhost:3000\"\n        session = requests.Session()\n    \n        # 1. Register\n        email = f\"test-{uuid.uuid4()}@example.com\"\n        password = \"Password123!\"\n        resp = session.post(f\"{base_url}/register\", json={\"email\": email, \"password\": password})\n>       assert resp.status_code == 200, f\"Register failed: {resp.text}\"\nE       AssertionError: Register failed: {\"error\":\"{\\\"status_code\\\":400,\\\"request_id\\\":\\\"request-id-test-1ec592a7-d8c6-49fd-8800-8dba3a5ef007\\\",\\\"error_type\\\":\\\"weak_password\\\",\\\"error_message\\\":\\\"password doesn't meet our strength requirements.\\\",\\\"error_url\\\":\\\"https://stytch.com/docs/api/errors/400#weak_password\\\"}\"}\nE       assert 400 == 200\nE        +  where 400 = <Response [400]>.status_code\n\ntests/test_final_state.py:53: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

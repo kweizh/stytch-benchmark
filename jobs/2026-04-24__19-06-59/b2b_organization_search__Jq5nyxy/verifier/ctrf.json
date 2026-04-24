@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777049167.3072188,
+            "stop": 1777049170.1830044
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_amika_api_validation_dummy_token",
+                "status": "passed",
+                "duration": 2.639868251979351,
+                "start": 1777049167.5304089,
+                "stop": 1777049170.1709309,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_amika_api_validation_missing_token",
+                "status": "passed",
+                "duration": 0.01099417102523148,
+                "start": 1777049170.1714847,
+                "stop": 1777049170.1827154,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
