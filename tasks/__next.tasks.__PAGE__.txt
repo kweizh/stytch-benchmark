@@ -1,5 +1,277 @@
 1:"$Sreact.fragment"
-2:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-3:"$Sreact.suspense"
-0:{"buildId":"p_-28oUIYthZSnB0XT6nW","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","div",null,{"className":"container mx-auto px-4 sm:px-8 lg:px-12 py-8 max-w-screen-2xl h-[100dvh] flex flex-col overflow-hidden","children":[["$","div",null,{"className":"mb-6 space-y-4 shrink-0","children":[["$","div",null,{"className":"flex items-center gap-4","children":["$","a",null,{"href":"/","className":"text-sm text-muted-foreground hover:text-foreground transition-colors","children":"← Back to Leaderboard"}]}],["$","div",null,{"children":["$","h1",null,{"className":"text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50","children":"Task"}]}]]}],["$","div",null,{"className":"relative overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card/90 to-background/90 px-5 pb-10 pt-6 text-center shadow-[0_0_0_1px_hsl(var(--primary)/0.18),0_28px_72px_-32px_hsl(var(--foreground)/0.45)] backdrop-blur-sm sm:px-8 sm:pb-14 sm:pt-8","children":[["$","div",null,{"className":"pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/20 blur-3xl sm:-right-14 sm:-top-14 sm:h-40 sm:w-40"}],["$","div",null,{"className":"pointer-events-none absolute -left-20 bottom-0 h-32 w-32 rounded-full bg-foreground/10 blur-3xl sm:h-36 sm:w-36"}],["$","div",null,{"className":"relative mx-auto mb-8 inline-flex items-center rounded-full border border-primary/40 bg-primary/15 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-foreground sm:text-sm sm:tracking-[0.16em]","children":"⏳ PIPELINE PENDING REVIEW"}],["$","p",null,{"className":"relative mx-auto max-w-2xl px-4 text-center text-lg font-semibold tracking-wide text-foreground sm:px-5 sm:text-xl","children":[0," sample cases generated — pending review"]}],["$","p",null,{"className":"relative mx-auto mt-2 max-w-2xl px-4 text-left text-sm leading-relaxed text-muted-foreground sm:px-5","children":"Your sample cases are ready. Before moving forward, we do a quick review together to make sure everything looks right and aligns with real-world usage."}],["$","div",null,{"className":"relative mx-auto mt-8 max-w-2xl rounded-xl bg-primary/10 px-4 py-4 text-left sm:px-5","children":[["$","p",null,{"className":"text-base font-semibold text-foreground sm:text-lg text-center","children":"Next step: join Slack for review"}],["$","p",null,{"className":"mt-1 text-sm leading-relaxed text-muted-foreground","children":"We've sent you a Slack invitation to your registered email with Zealt. Please join and we'll walk through the next step together."}],["$","p",null,{"className":"mt-3 text-xs text-muted-foreground","children":["If you don't see it, just reach out at"," ",["$","a",null,{"href":"mailto:zealtdev@tabbyml.com","className":"font-normal text-foreground underline decoration-primary/60 underline-offset-4 hover:text-primary transition-colors","children":"zealtdev@tabbyml.com"}],"."]}]]}]]}]]}]]}],[["$","script","script-0",{"src":"/stytch-benchmark/_next/static/chunks/2f5b534ce7cd3d34.js","async":true}],["$","script","script-1",{"src":"/stytch-benchmark/_next/static/chunks/be08138953094657.js","async":true}]],["$","$L2",null,{"children":["$","$3",null,{"name":"Next.MetadataOutlet","children":"$@4"}]}]]}],"loading":null,"isPartial":false}
-4:null
+2:I[42654,["/stytch-benchmark/_next/static/chunks/ca023ad85cd7aeee.js","/stytch-benchmark/_next/static/chunks/2ad5122eae704b1a.js","/stytch-benchmark/_next/static/chunks/2f5b534ce7cd3d34.js","/stytch-benchmark/_next/static/chunks/be08138953094657.js"],"TasksPageClient"]
+11:I[75049,["/stytch-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/stytch-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+12:"$Sreact.suspense"
+3:T67c,# Stytch B2B Fraud-Aware Login CLI
+
+## Background
+Stytch Device Fingerprinting protects B2B applications from automated attacks and risky logins. You need to implement a simple CLI script that integrates Stytch Device Fingerprinting to evaluate a user's risk level before allowing them to log in.
+
+## Requirements
+- Create a Node.js script `login.js` in `/home/user/project`.
+- The script should receive a `telemetry_id` as the first command-line argument.
+- Initialize the Stytch B2B client using `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` environment variables.
+- The script must call the Stytch Device Fingerprinting Lookup API (e.g., via the Stytch SDK `client.fraud.fingerprints.lookup({ telemetry_id })` or by making an HTTP request to `https://test.stytch.com/v1/fraud/fingerprints/lookup` with Basic Auth using the project credentials).
+- Check the `verdict.action` from the response:
+  - If it is `"BLOCK"`, the script must print `"Access Denied: Blocked"` and exit with code 1.
+  - If it is `"CHALLENGE"`, the script must print `"MFA Required"` and exit with code 1.
+  - If it is `"ALLOW"`, the script must print `"Login Successful"` and exit with code 0.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project`.
+2. Install the `stytch` package.
+3. Create `login.js`.
+4. Read the `telemetry_id` from `process.argv[2]`.
+5. Use the Stytch B2B client to look up the fingerprint.
+6. Evaluate the verdict and print the appropriate message and exit code.
+
+## Constraints
+- Project path: `/home/user/project`
+- Ensure the script handles errors from the API gracefully (e.g., invalid telemetry ID).
+
+## Integrations
+- Stytch B2B4:T501,# Stytch B2B Local JWT Validator
+
+## Background
+Stytch B2B sessions can be represented as a `session_jwt` which has a 5-minute lifespan. Validating a JWT locally (using JWKS) is significantly faster than communicating with Stytch's API on every request.
+
+## Requirements
+Write a standalone Node.js Express service that exposes an endpoint to validate incoming B2B `session_jwt` tokens locally.
+
+1.  **Endpoint**: `POST /validate`
+2.  **Payload**: JSON body containing `{ "session_jwt": "<token>" }`.
+3.  **Behavior**:
+    *   The service MUST validate the JWT locally using the Stytch Node.js SDK (`authenticateJwtLocal` method) or a standard JWT library with the Stytch JWKS endpoint.
+    *   It MUST NOT make a network call to Stytch's `authenticate` endpoint for every validation request.
+    *   If the JWT is valid, return `200 OK` with `{ "member_id": "<member_id>" }`.
+    *   If the JWT is invalid or expired, return `401 Unauthorized`.
+4.  **Configuration**: Use `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from the environment.
+
+## Constraints
+- **Project path**: `/home/user/app`
+- **Start command**: `npm start`
+- **Port**: 3000
+- **Dependencies**: Use Node.js and Express. You may use the official `stytch` SDK or a custom JWT validator.
+
+## Integrations
+- Stytch
+5:T5bb,# B2B SCIM Endpoint Setup
+
+## Background
+You are building an automated user provisioning pipeline for a B2B organization using Stytch's SCIM API. You need to create a Node.js script that programmatically provisions a new organization and sets up a SCIM connection for it.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app` and install the `stytch` SDK.
+- Write a script `setup_scim.js` that uses the Stytch B2B Client.
+- The script must:
+  1. Create a new B2B Organization with `organization_name` "Acme SCIM Org" and a unique slug (e.g., `acme-scim-org-<timestamp>`).
+  2. Create a SCIM connection for this organization with `display_name` "Acme SCIM Connection" and `identity_provider` "okta".
+  3. Write a JSON file to `/home/user/app/scim_output.json` containing:
+     - `organization_id`
+     - `connection_id`
+     - `base_url`
+     - `bearer_token` (from the created SCIM connection)
+
+## Implementation Guide
+1. Run `npm init -y` and `npm install stytch` in `/home/user/app`.
+2. Create `/home/user/app/setup_scim.js`.
+3. Use the SDK to instantiate `new stytch.B2BClient({ project_id: process.env.STYTCH_PROJECT_ID, secret: process.env.STYTCH_SECRET })`.
+4. Call `client.organizations.create(...)` and then `client.scim.connection.create(...)`.
+5. Write the extracted properties to `scim_output.json`.
+
+## Constraints
+- **Project path**: `/home/user/app`
+- Do not hardcode the `STYTCH_PROJECT_ID` or `STYTCH_SECRET`; use environment variables.
+6:T413,# Update Stytch B2B Organization Authentication Methods
+
+## Background
+You have a Stytch B2B project. You need to create a new B2B organization and then update its settings to restrict the allowed authentication methods. By default, organizations allow all authentication methods (`ALL_ALLOWED`). Your goal is to restrict them to only Single Sign-On (SSO) and Magic Links.
+
+## Requirements
+- Write a Python script `update_org.py` that uses the `stytch` Python library.
+- Read `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from environment variables to initialize the `stytch.B2BClient`.
+- Read the `trial_id` from `/logs/artifacts/trial_id`.
+- Create a new B2B organization with the name `test-org-${trial_id}` and slug `test-org-${trial_id}`.
+- Update the organization's settings so that `auth_methods` is set to `RESTRICTED` and `allowed_auth_methods` is set to `["sso", "magic_link"]`.
+
+## Constraints
+- Project path: `/home/user/stytch_project`
+- Script to run: `python3 /home/user/stytch_project/update_org.py`
+
+## Integrations
+- Stytch7:T63c,# Implement Stytch B2C Magic Link Signup and Login
+
+## Background
+You are building a Node.js Express application and need to implement a passwordless authentication flow using Stytch's Email Magic Links. This allows users to sign up or log in by clicking a link sent to their email.
+
+## Requirements
+- Create an Express server with two endpoints:
+  1. `POST /login`: Takes an `email` in the JSON request body. It should use the Stytch Node.js SDK to send a magic link to that email by calling `loginOrCreate`. Set both `login_magic_link_url` and `signup_magic_link_url` to `http://localhost:3000/authenticate`.
+  2. `GET /authenticate`: Accepts a `token` query parameter. It should use the Stytch Node.js SDK to authenticate the token. If successful, respond with a JSON object containing `{"success": true, "user_id": "<stytch_user_id>"}`. If it fails, respond with a 401 status code.
+- The server must listen on port 3000.
+- Use the `stytch` npm package.
+- Configure the Stytch client using the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/stytch-app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` setting up the Express server with JSON body parsing.
+4. Initialize the Stytch client using environment variables.
+5. Implement the `POST /login` and `GET /authenticate` routes as specified.
+
+## Constraints
+- Project path: `/home/user/stytch-app`
+- Start command: `node index.js`
+- Port: `3000`
+- STYTCH_PROJECT_ID and STYTCH_SECRET will be provided in the environment.
+
+## Integrations
+- Stytch8:T603,# Secure Session Revocation with Local JWTs
+
+## Background
+You have an Express.js application at `/home/user/app` that uses the Stytch Node.js SDK for B2C authentication.
+The app uses local JWT verification (`authenticateJwtLocal`) in the `/profile` endpoint to minimize network calls.
+However, there is a security vulnerability: when a user logs out via `/logout`, the session is revoked in the Stytch backend and cookies are cleared, but the local JWT remains cryptographically valid for up to 5 minutes. If an attacker intercepts the JWT before logout, they can still use it to access `/profile` until it expires.
+
+## Requirements
+1. Update the `/logout` endpoint to extract the `session_id` from the user's JWT and add it to the provided `revokedSessions` Set (an in-memory blocklist) before revoking the session.
+2. Update the `/profile` endpoint to check if the authenticated session's `session_id` is in the `revokedSessions` Set. If it is, return a `401` status code with the JSON response `{"error": "Session revoked"}`.
+
+## Implementation Guide
+1. In `/logout`, use `client.sessions.authenticateJwtLocal({ session_jwt: req.cookies.stytch_session_jwt })` to decode the JWT and get the `session.session_id`, then add it to `revokedSessions`.
+2. In `/profile`, after verifying the JWT, check `revokedSessions.has(session.session_id)`.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `npm start`
+- Port: 3000
+- You must use the `revokedSessions` Set. Do not change `/profile` to use a network call (`authenticate`).9:T56f,# Stytch B2C TOTP Flow API
+
+## Background
+Implement a TOTP authenticator app enrollment and verification flow for a B2C application using Express.js and the Stytch Node.js SDK.
+
+## Requirements
+Create an Express REST API with the following endpoints:
+- `POST /users`: Accepts JSON `{ "email": "user@example.com" }`. Creates a Stytch B2C user and returns `{ "user_id": "..." }`.
+- `POST /totp/enroll`: Accepts JSON `{ "user_id": "..." }`. Creates a TOTP instance for the user using Stytch, and returns `{ "totp_id": "...", "secret": "..." }` (extract the base32 secret from the Stytch response).
+- `POST /totp/verify`: Accepts JSON `{ "user_id": "...", "totp_code": "..." }`. Authenticates the TOTP code using Stytch, creating a session. Returns `{ "session_token": "..." }`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` that sets up the Express server.
+4. Configure the Stytch B2C client using the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+5. Implement the three endpoints, ensuring they return the exact JSON keys required.
+6. Start the server on port 3000.
+
+## Constraints
+- Project path: /home/user/app
+- Start command: node index.js
+- Port: 3000
+- The Stytch client must use the B2C environment (test environment is fine, derived from the project ID).
+
+## Integrations
+- Stytcha:T67c,# Stytch OTP SMS Authentication with Node.js
+
+## Background
+Stytch provides a robust API for passwordless authentication. In this task, you will create a Node.js CLI script using the Stytch Node.js SDK to send a One-Time Passcode (OTP) via SMS to a user and authenticate the OTP code.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/stytch_app`.
+- Install the `stytch` package.
+- Create a CLI script `stytch_sms.js` with two commands:
+  1. `node stytch_sms.js send <phone_number>`: Sends an SMS OTP using the `stytch.Client` (B2C) `otps.sms.loginOrCreate` method and prints the resulting `phone_id` to stdout.
+  2. `node stytch_sms.js authenticate <phone_id> <code>`: Authenticates the OTP using the `otps.authenticate` method and prints the resulting `user_id` to stdout.
+- The script must read the Stytch credentials from the `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+
+## Implementation Guide
+1. Run `npm init -y` and `npm install stytch` in `/home/user/stytch_app`.
+2. Create `stytch_sms.js`.
+3. Initialize the Stytch client:
+   ```javascript
+   const stytch = require('stytch');
+   const client = new stytch.Client({
+     project_id: process.env.STYTCH_PROJECT_ID,
+     secret: process.env.STYTCH_SECRET,
+   });
+   ```
+4. Implement the `send` command logic using `client.otps.sms.loginOrCreate({ phone_number })`.
+5. Implement the `authenticate` command logic using `client.otps.authenticate({ method_id, code })`.
+
+## Constraints
+- Project path: `/home/user/stytch_app`
+- The script must output only the requested ID (`phone_id` or `user_id`) to stdout on success, without any additional text.
+
+## Integrations
+- Stytchb:T5a3,# Stytch Passkeys with Express
+
+## Background
+Create an Express REST API that integrates Stytch WebAuthn (Passkeys) for authentication using the Stytch Node.js SDK.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/app`.
+- Install `express` and `stytch`.
+- Create `server.js` that sets up the Express server on port 3000.
+- Initialize the Stytch B2C client using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+- Implement the following POST endpoints. They should parse JSON bodies and return the raw JSON responses from the Stytch SDK.
+  - `POST /webauthn/register/start`: Accepts `user_id` and `domain`. Calls `stytchClient.webauthn.registerStart({ user_id, domain, use_base64_url_encoding: true })` and returns the response.
+  - `POST /webauthn/register`: Accepts `user_id` and `public_key_credential`. Calls `stytchClient.webauthn.register({ user_id, public_key_credential })` and returns the response.
+  - `POST /webauthn/authenticate/start`: Accepts `domain`. Calls `stytchClient.webauthn.authenticateStart({ domain })` and returns the response.
+  - `POST /webauthn/authenticate`: Accepts `public_key_credential`. Calls `stytchClient.webauthn.authenticate({ public_key_credential })` and returns the response.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `node server.js`
+- Port: 3000
+- Return the exact JSON response returned by the Stytch SDK (or the Stytch error object if it throws).c:T46d,# Verify Stytch B2C Session
+
+## Background
+Stytch is a developer-first identity platform. In this task, you will use the Stytch Node.js SDK to verify a B2C `session_token`.
+
+## Requirements
+- Write a Node.js script `verify_session.js` that authenticates a Stytch B2C `session_token`.
+- Read the session token from the first command-line argument (`process.argv[2]`).
+- Use `stytch.Client` initialized with `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+- Call `client.sessions.authenticate({ session_token: token })` to verify the token.
+- Print the resulting `user_id` from the session to the standard output.
+
+## Implementation Guide
+1. Navigate to `/home/user/stytch-app`.
+2. Install the `stytch` Node.js package.
+3. Create `verify_session.js` to initialize the client and authenticate the session.
+4. Handle errors appropriately (e.g., if the token is invalid, exit gracefully).
+
+## Constraints
+- Project path: `/home/user/stytch-app`
+- The script must be executable via `node verify_session.js <token>`.
+- Do not hardcode project ID or secret; use `STYTCH_PROJECT_ID` and `STYTCH_SECRET`.
+
+## Integrations
+- Noned:T51a,# Stytch Step-Up MFA
+
+## Background
+In sensitive operations like financial transfers, it's common to require Step-Up Authentication (MFA). You will build an Express.js endpoint that uses the Stytch Node.js SDK to enforce this.
+
+## Requirements
+- Create an Express.js server in `/home/user/app`.
+- Implement a `POST /transfer` endpoint that accepts a JSON body containing a `session_token`.
+- Use the `stytch` Node.js SDK (B2C Client) to authenticate the session.
+- If the session is invalid, return a `401 Unauthorized` status code.
+- If the session is valid but has fewer than 2 authentication factors, return a `403 Forbidden` status code with the JSON response `{"error": "Step-up MFA required"}`.
+- If the session is valid and has 2 or more authentication factors, return a `200 OK` status code with the JSON response `{"success": true}`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/app`.
+2. Install `express` and `stytch`.
+3. Create `index.js` that initializes the Stytch B2C client using `STYTCH_PROJECT_ID` and `STYTCH_SECRET` environment variables.
+4. Implement the `POST /transfer` endpoint to check `session.authentication_factors.length`.
+5. Start the server on port 3000.
+
+## Constraints
+- Project path: `/home/user/app`
+- Start command: `node index.js`
+- Port: 30000:{"buildId":"pDS7r0FOVA7S5TSUB1f_u","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L2",null,{"tasksData":[{"taskName":"b2b_delete_organization","instruction":"# Delete a B2B Organization\n\n## Background\nYou have a Stytch B2B project configured. Your task is to write a Python script that safely deletes a specific B2B organization using the Stytch API.\n\n## Requirements\n- Create a Python script `/home/user/project/delete_org.py`.\n- The script must read the organization ID from `/logs/org_id.txt`.\n- Use the `stytch` Python SDK to delete this organization.\n- Write the deleted organization ID to `/home/user/project/output.log` after successful deletion.\n- The script must use the environment variables `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` for authentication.\n\n## Implementation Guide\n1. Initialize a Python project in `/home/user/project`.\n2. Install the `stytch` SDK.\n3. Write `delete_org.py` to perform the deletion.\n4. Run the script and verify the output log.\n\n## Constraints\n- Project path: `/home/user/project`\n- Log file: `/home/user/project/output.log`\n- Ensure the script runs successfully with `python delete_org.py`.\n\n## Integrations\n- Stytch","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_delete_organization__8WDBixR","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":205.96,"latency_breakdown":{"env_setup":15.197,"agent_setup":27.992,"agent_exec":141.564,"verifier":7.975},"taskName":"b2b_delete_organization","jobId":"8WDBixR","exec_duration":141.564},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_delete_organization__jLJyWrm","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":208.907,"latency_breakdown":{"env_setup":14.408,"agent_setup":26.638,"agent_exec":145.451,"verifier":5.268},"taskName":"b2b_delete_organization","jobId":"jLJyWrm","exec_duration":145.451},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_delete_organization__kxQCzfh","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":185.314,"latency_breakdown":{"env_setup":12.804,"agent_setup":18.681,"agent_exec":133.546,"verifier":5.339},"taskName":"b2b_delete_organization","jobId":"kxQCzfh","exec_duration":133.546},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_delete_organization__y2Zdof7","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":165.181,"latency_breakdown":{"env_setup":8.98,"agent_setup":21.589,"agent_exec":115.889,"verifier":5.217},"taskName":"b2b_delete_organization","jobId":"y2Zdof7","exec_duration":115.889}]},{"taskName":"b2b_fraud_aware_login","instruction":"$3","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_fraud_aware_login__g3piFME","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":148.013,"latency_breakdown":{"env_setup":4.573,"agent_setup":24.108,"agent_exec":89.019,"verifier":14.684},"taskName":"b2b_fraud_aware_login","jobId":"g3piFME","exec_duration":89.019},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_fraud_aware_login__pAs239C","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":186.833,"latency_breakdown":{"env_setup":4.712,"agent_setup":19.192,"agent_exec":144.186,"verifier":5.432},"taskName":"b2b_fraud_aware_login","jobId":"pAs239C","exec_duration":144.186},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_fraud_aware_login__Q5h4VjS","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":182.239,"latency_breakdown":{"env_setup":15.432,"agent_setup":19.686,"agent_exec":119.476,"verifier":8.13},"taskName":"b2b_fraud_aware_login","jobId":"Q5h4VjS","exec_duration":119.476},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_fraud_aware_login__fxJRzCs","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":115.845,"latency_breakdown":{"env_setup":19.281,"agent_setup":18.074,"agent_exec":59.118,"verifier":4.773},"taskName":"b2b_fraud_aware_login","jobId":"fxJRzCs","exec_duration":59.118}]},{"taskName":"b2b_jwt_validator","instruction":"$4","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_jwt_validator__r8MaCnM","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":173.09,"latency_breakdown":{"env_setup":15.21,"agent_setup":27.012,"agent_exec":98.216,"verifier":16.192},"taskName":"b2b_jwt_validator","jobId":"r8MaCnM","exec_duration":98.216},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_jwt_validator__7t2BE9U","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":216.219,"latency_breakdown":{"env_setup":9.884,"agent_setup":20.324,"agent_exec":159.599,"verifier":12.041},"taskName":"b2b_jwt_validator","jobId":"7t2BE9U","exec_duration":159.599},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_jwt_validator__z6GsoWF","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":240.606,"latency_breakdown":{"env_setup":12.495,"agent_setup":20.601,"agent_exec":180.803,"verifier":12.993},"taskName":"b2b_jwt_validator","jobId":"z6GsoWF","exec_duration":180.803},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_jwt_validator__nzDmbtu","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":122.831,"latency_breakdown":{"env_setup":6.633,"agent_setup":15.744,"agent_exec":68.955,"verifier":13.612},"taskName":"b2b_jwt_validator","jobId":"nzDmbtu","exec_duration":68.955}]},{"taskName":"b2b_organization_search","instruction":"# B2B Organization Search via Discovery\n\n## Background\nYou need to implement a REST API endpoint that allows an authenticated user to discover and list the B2B organizations they are associated with or eligible to join. This utilizes Stytch's B2B Discovery APIs.\n\n## Requirements\n- Set up an Express.js server running on port 3000.\n- Implement a `POST /api/discovery/organizations` endpoint.\n- The endpoint must accept a JSON body with an `intermediate_session_token`.\n- Use the Stytch Node.js SDK (`stytch`) to call the B2B Discovery Organizations List method.\n- Return the discovered organizations in the response as JSON (status 200).\n- If the token is invalid or missing, propagate the error from Stytch (e.g. return 400 with the error details).\n\n## Constraints\n- Project path: `/home/user/project`\n- Start command: `node index.js`\n- Port: 3000\n- You MUST use real systems and API keys from the environment (`STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET`). NEVER use fake dependencies nor mock the target.","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_organization_search__DSsAc5R","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":203.009,"latency_breakdown":{"env_setup":13.518,"agent_setup":32.799,"agent_exec":99.076,"verifier":40.195},"taskName":"b2b_organization_search","jobId":"DSsAc5R","exec_duration":99.076},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_organization_search__miuLYFf","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":246.941,"latency_breakdown":{"env_setup":9.746,"agent_setup":20.762,"agent_exec":193.484,"verifier":9.618},"taskName":"b2b_organization_search","jobId":"miuLYFf","exec_duration":193.484},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_organization_search__rKmKAxL","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":148.65,"latency_breakdown":{"env_setup":3.995,"agent_setup":19.478,"agent_exec":86.88,"verifier":20.694},"taskName":"b2b_organization_search","jobId":"rKmKAxL","exec_duration":86.88},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_organization_search__kt46op2","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":197.029,"latency_breakdown":{"env_setup":6.895,"agent_setup":17.225,"agent_exec":151.993,"verifier":7.414},"taskName":"b2b_organization_search","jobId":"kt46op2","exec_duration":151.993}]},{"taskName":"b2b_scim","instruction":"$5","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_scim__8AjQztQ","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":202.715,"latency_breakdown":{"env_setup":3.965,"agent_setup":63.676,"agent_exec":97.588,"verifier":5.147},"taskName":"b2b_scim","jobId":"8AjQztQ","exec_duration":97.588},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_scim__LumTDrh","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":194.674,"latency_breakdown":{"env_setup":6.25,"agent_setup":23.468,"agent_exec":145.187,"verifier":5.223},"taskName":"b2b_scim","jobId":"LumTDrh","exec_duration":145.187},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_scim__hrPQCaw","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":126.109,"latency_breakdown":{"env_setup":4.598,"agent_setup":29.417,"agent_exec":63.661,"verifier":4.66},"taskName":"b2b_scim","jobId":"hrPQCaw","exec_duration":63.661},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_scim__Hdt5VcP","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":152.62,"latency_breakdown":{"env_setup":14.708,"agent_setup":21.417,"agent_exec":90.464,"verifier":4.834},"taskName":"b2b_scim","jobId":"Hdt5VcP","exec_duration":90.464}]},{"taskName":"b2b_sso_saml","instruction":"# Configure SAML Connection for B2B Organization\n\n## Background\nStytch provides robust B2B authentication features including enterprise SSO. Your task is to write a Python script that creates a new B2B organization and configures a SAML connection for it using the Stytch B2B API.\n\n## Requirements\n- Read the `trial_id` from `/logs/artifacts/trial_id`.\n- Create a new Stytch B2B organization with the name `SAML Org ${trial_id}` and the slug `saml-org-${trial_id}`.\n- Create a SAML connection for this organization.\n- Update the SAML connection with the IdP SSO URL `https://idp.example.com/sso` and a dummy IdP entity ID `https://idp.example.com/entity`.\n- The script must be saved to `/home/user/workspace/setup_saml.py` and execute successfully.\n\n## Constraints\n- Project path: `/home/user/workspace`\n- Use `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` environment variables for authentication.\n\n## Integrations\n- Stytch","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_sso_saml__NNLcW2R","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":101.255,"latency_breakdown":{"env_setup":15.505,"agent_setup":23.138,"agent_exec":39.788,"verifier":8.06},"taskName":"b2b_sso_saml","jobId":"NNLcW2R","exec_duration":39.788},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_sso_saml__TsRQe9D","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":149.554,"latency_breakdown":{"env_setup":10.475,"agent_setup":27.855,"agent_exec":92.158,"verifier":5.237},"taskName":"b2b_sso_saml","jobId":"TsRQe9D","exec_duration":92.158},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_sso_saml__t44rQyY","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":217.4,"latency_breakdown":{"env_setup":9.346,"agent_setup":19.26,"agent_exec":168.765,"verifier":6.729},"taskName":"b2b_sso_saml","jobId":"t44rQyY","exec_duration":168.765},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_sso_saml__4TBmbZe","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":188.969,"latency_breakdown":{"env_setup":4.839,"agent_setup":45.006,"agent_exec":121.177,"verifier":4.86},"taskName":"b2b_sso_saml","jobId":"4TBmbZe","exec_duration":121.177}]},{"taskName":"b2b_update_organization","instruction":"$6","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2b_update_organization__uysNoyy","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":119.582,"latency_breakdown":{"env_setup":8.567,"agent_setup":22.798,"agent_exec":67.154,"verifier":7.125},"taskName":"b2b_update_organization","jobId":"uysNoyy","exec_duration":67.154},{"job_name":"2026-04-26__00-37-50","trial_name":"b2b_update_organization__a5WLqDe","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":121.835,"latency_breakdown":{"env_setup":8.487,"agent_setup":27.294,"agent_exec":66.295,"verifier":5.681},"taskName":"b2b_update_organization","jobId":"a5WLqDe","exec_duration":66.295},{"job_name":"2026-04-26__00-27-20","trial_name":"b2b_update_organization__V2fUFaB","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":150.036,"latency_breakdown":{"env_setup":6.507,"agent_setup":19.337,"agent_exec":104.648,"verifier":5.487},"taskName":"b2b_update_organization","jobId":"V2fUFaB","exec_duration":104.648},{"job_name":"2026-04-26__00-46-57","trial_name":"b2b_update_organization__GcRxW7L","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":178.305,"latency_breakdown":{"env_setup":13.912,"agent_setup":26.063,"agent_exec":119.469,"verifier":5.385},"taskName":"b2b_update_organization","jobId":"GcRxW7L","exec_duration":119.469}]},{"taskName":"b2c_magic_link","instruction":"$7","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2c_magic_link__NvMywi2","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":467.06,"latency_breakdown":{"env_setup":12.188,"agent_setup":25.972,"agent_exec":394.723,"verifier":9.75},"taskName":"b2c_magic_link","jobId":"NvMywi2","exec_duration":394.723},{"job_name":"2026-04-26__00-37-50","trial_name":"b2c_magic_link__8VZdbjK","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":157.298,"latency_breakdown":{"env_setup":12.333,"agent_setup":26.328,"agent_exec":94.911,"verifier":7.713},"taskName":"b2c_magic_link","jobId":"8VZdbjK","exec_duration":94.911},{"job_name":"2026-04-26__00-27-20","trial_name":"b2c_magic_link__gAivDN2","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":223.63,"latency_breakdown":{"env_setup":21.109,"agent_setup":24.238,"agent_exec":147.549,"verifier":7.086},"taskName":"b2c_magic_link","jobId":"gAivDN2","exec_duration":147.549},{"job_name":"2026-04-26__00-46-57","trial_name":"b2c_magic_link__4ntQqwE","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":165.709,"latency_breakdown":{"env_setup":26.103,"agent_setup":20.446,"agent_exec":90.355,"verifier":9.193},"taskName":"b2c_magic_link","jobId":"4ntQqwE","exec_duration":90.355}]},{"taskName":"b2c_session_revoke","instruction":"$8","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2c_session_revoke__332fkAZ","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":126.809,"latency_breakdown":{"env_setup":6.226,"agent_setup":19.611,"agent_exec":78.624,"verifier":8.121},"taskName":"b2c_session_revoke","jobId":"332fkAZ","exec_duration":78.624},{"job_name":"2026-04-26__00-37-50","trial_name":"b2c_session_revoke__Ln4e6YJ","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":129.476,"latency_breakdown":{"env_setup":6.088,"agent_setup":20.04,"agent_exec":77.601,"verifier":8.256},"taskName":"b2c_session_revoke","jobId":"Ln4e6YJ","exec_duration":77.601},{"job_name":"2026-04-26__00-27-20","trial_name":"b2c_session_revoke__kuNxR6a","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":135.74,"latency_breakdown":{"env_setup":7.337,"agent_setup":45.879,"agent_exec":59.027,"verifier":8.142},"taskName":"b2c_session_revoke","jobId":"kuNxR6a","exec_duration":59.027},{"job_name":"2026-04-26__00-46-57","trial_name":"b2c_session_revoke__bDgJcw6","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":151.54,"latency_breakdown":{"env_setup":27.464,"agent_setup":27.642,"agent_exec":64.447,"verifier":8.382},"taskName":"b2c_session_revoke","jobId":"bDgJcw6","exec_duration":64.447}]},{"taskName":"b2c_totp","instruction":"$9","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"b2c_totp__SrDXcg2","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":203.326,"latency_breakdown":{"env_setup":4.279,"agent_setup":21.745,"agent_exec":95.592,"verifier":66.519},"taskName":"b2c_totp","jobId":"SrDXcg2","exec_duration":95.592},{"job_name":"2026-04-26__00-37-50","trial_name":"b2c_totp__iaWpNbG","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":220.598,"latency_breakdown":{"env_setup":5.223,"agent_setup":47.184,"agent_exec":135.375,"verifier":8.058},"taskName":"b2c_totp","jobId":"iaWpNbG","exec_duration":135.375},{"job_name":"2026-04-26__00-27-20","trial_name":"b2c_totp__xgkJowt","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":343.312,"latency_breakdown":{"env_setup":6.901,"agent_setup":32.366,"agent_exec":280.215,"verifier":9.402},"taskName":"b2c_totp","jobId":"xgkJowt","exec_duration":280.215},{"job_name":"2026-04-26__00-46-57","trial_name":"b2c_totp__DEFL7tW","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":228.038,"latency_breakdown":{"env_setup":29.953,"agent_setup":29.18,"agent_exec":146.084,"verifier":8.649},"taskName":"b2c_totp","jobId":"DEFL7tW","exec_duration":146.084}]},{"taskName":"mcp_auth","instruction":"# Stytch MCP Auth Layer\n\n## Background\nYou are building an MCP (Model Context Protocol) server that requires authentication. You will use Stytch as the identity provider. The server needs a Node.js script to verify incoming B2B session JWTs.\n\n## Requirements\n- Implement a function `verifyAgentToken(jwt)` in `/home/user/mcp_server/mcp_auth.js`.\n- The function should use the `stytch` Node.js SDK (`stytch.B2BClient`).\n- It must authenticate a `session_jwt`.\n- Return the `member_session` object if successful, or throw an error if invalid.\n- Read `STYTCH_PROJECT_ID` and `STYTCH_SECRET` from environment variables.\n\n## Implementation Guide\n1. Initialize a Node.js project in `/home/user/mcp_server`.\n2. Install the `stytch` package.\n3. Create `/home/user/mcp_server/mcp_auth.js` and implement the `verifyAgentToken` function.\n4. Export the function using `module.exports = { verifyAgentToken };`.\n\n## Constraints\n- Project path: `/home/user/mcp_server`\n- Use `stytch` SDK version 10 or later.\n\n## Integrations\n- None","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"mcp_auth__PoqGFuf","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":134.094,"latency_breakdown":{"env_setup":12.039,"agent_setup":21.005,"agent_exec":78.488,"verifier":7.902},"taskName":"mcp_auth","jobId":"PoqGFuf","exec_duration":78.488},{"job_name":"2026-04-26__00-37-50","trial_name":"mcp_auth__ga5V65s","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":195.815,"latency_breakdown":{"env_setup":12.379,"agent_setup":27.675,"agent_exec":123.666,"verifier":6.698},"taskName":"mcp_auth","jobId":"ga5V65s","exec_duration":123.666},{"job_name":"2026-04-26__00-27-20","trial_name":"mcp_auth__aAvmbqw","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":162.194,"latency_breakdown":{"env_setup":21.096,"agent_setup":67.771,"agent_exec":48.724,"verifier":9.494},"taskName":"mcp_auth","jobId":"aAvmbqw","exec_duration":48.724},{"job_name":"2026-04-26__00-46-57","trial_name":"mcp_auth__FPdX6VW","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":129.954,"latency_breakdown":{"env_setup":26.259,"agent_setup":21.375,"agent_exec":61.591,"verifier":5.444},"taskName":"mcp_auth","jobId":"FPdX6VW","exec_duration":61.591}]},{"taskName":"otp_sms","instruction":"$a","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"otp_sms__odFWvRj","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":136.776,"latency_breakdown":{"env_setup":11.944,"agent_setup":22.028,"agent_exec":82.433,"verifier":6.216},"taskName":"otp_sms","jobId":"odFWvRj","exec_duration":82.433},{"job_name":"2026-04-26__00-37-50","trial_name":"otp_sms__WbLGveZ","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":135.332,"latency_breakdown":{"env_setup":12.255,"agent_setup":27.865,"agent_exec":74.85,"verifier":6.161},"taskName":"otp_sms","jobId":"WbLGveZ","exec_duration":74.85},{"job_name":"2026-04-26__00-27-20","trial_name":"otp_sms__ozqZyWM","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":162.67,"latency_breakdown":{"env_setup":20.913,"agent_setup":67.675,"agent_exec":51.647,"verifier":6.613},"taskName":"otp_sms","jobId":"ozqZyWM","exec_duration":51.647},{"job_name":"2026-04-26__00-46-57","trial_name":"otp_sms__Lqo7xFF","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":128.279,"latency_breakdown":{"env_setup":26.077,"agent_setup":19.597,"agent_exec":59.146,"verifier":6.244},"taskName":"otp_sms","jobId":"Lqo7xFF","exec_duration":59.146}]},{"taskName":"passkeys_auth","instruction":"$b","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"passkeys_auth__gsmaxKj","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":193.777,"latency_breakdown":{"env_setup":11.943,"agent_setup":71.737,"agent_exec":82.864,"verifier":12.988},"taskName":"passkeys_auth","jobId":"gsmaxKj","exec_duration":82.864},{"job_name":"2026-04-26__00-37-50","trial_name":"passkeys_auth__BUfJwd2","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":146.144,"latency_breakdown":{"env_setup":12.389,"agent_setup":25.87,"agent_exec":80.803,"verifier":11.995},"taskName":"passkeys_auth","jobId":"BUfJwd2","exec_duration":80.803},{"job_name":"2026-04-26__00-27-20","trial_name":"passkeys_auth__pZjBnMj","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":142.796,"latency_breakdown":{"env_setup":20.473,"agent_setup":22.222,"agent_exec":74.014,"verifier":11.92},"taskName":"passkeys_auth","jobId":"pZjBnMj","exec_duration":74.014},{"job_name":"2026-04-26__00-46-57","trial_name":"passkeys_auth__9gSeBBj","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":148.831,"latency_breakdown":{"env_setup":26.305,"agent_setup":20.151,"agent_exec":70.5,"verifier":11.745},"taskName":"passkeys_auth","jobId":"9gSeBBj","exec_duration":70.5}]},{"taskName":"session_mgmt","instruction":"$c","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"session_mgmt__NtgiDa4","model":"gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":189.644,"latency_breakdown":{"env_setup":12.098,"agent_setup":64.266,"agent_exec":91.011,"verifier":7.825},"taskName":"session_mgmt","jobId":"NtgiDa4","exec_duration":91.011},{"job_name":"2026-04-26__00-37-50","trial_name":"session_mgmt__R4BhTVu","model":"claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":134.866,"latency_breakdown":{"env_setup":12.37,"agent_setup":27.7,"agent_exec":72.124,"verifier":6.819},"taskName":"session_mgmt","jobId":"R4BhTVu","exec_duration":72.124},{"job_name":"2026-04-26__00-27-20","trial_name":"session_mgmt__uBVSy28","model":"gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":170.158,"latency_breakdown":{"env_setup":20.426,"agent_setup":21.983,"agent_exec":107.775,"verifier":5.523},"taskName":"session_mgmt","jobId":"uBVSy28","exec_duration":107.775},{"job_name":"2026-04-26__00-46-57","trial_name":"session_mgmt__eHZPxEP","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":204.518,"latency_breakdown":{"env_setup":26.318,"agent_setup":81.989,"agent_exec":66.881,"verifier":6.035},"taskName":"session_mgmt","jobId":"eHZPxEP","exec_duration":66.881}]},{"taskName":"step_up_mfa","instruction":"$d","trials":[{"job_name":"2026-04-26__00-13-54","trial_name":"step_up_mfa__XRyxVCP","model":"gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":143.489,"latency_breakdown":{"env_setup":5.763,"agent_setup":21.233,"agent_exec":84.18,"verifier":8.069},"taskName":"step_up_mfa","jobId":"XRyxVCP","exec_duration":84.18},{"job_name":"2026-04-26__00-37-50","trial_name":"step_up_mfa__uyipFWB","model":"claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":166.828,"latency_breakdown":{"env_setup":35.928,"agent_setup":25.516,"agent_exec":80.091,"verifier":11.03},"taskName":"step_up_mfa","jobId":"uyipFWB","exec_duration":80.091},{"job_name":"2026-04-26__00-27-20","trial_name":"step_up_mfa__ejJoiSE","model":"gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":143.885,"latency_breakdown":{"env_setup":27.683,"agent_setup":29.201,"agent_exec":61.289,"verifier":11.521},"taskName":"step_up_mfa","jobId":"ejJoiSE","exec_duration":61.289},{"job_name":"2026-04-26__00-46-57","trial_name":"step_up_mfa__HQgAAMf","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":208.466,"latency_breakdown":{"env_setup":36.898,"agent_setup":26.813,"agent_exec":116.556,"verifier":12.506},"taskName":"step_up_mfa","jobId":"HQgAAMf","exec_duration":116.556}]}]}]]}],["$Le","$Lf"],"$L10"]}],"loading":null,"isPartial":false}
+e:["$","script","script-0",{"src":"/stytch-benchmark/_next/static/chunks/2f5b534ce7cd3d34.js","async":true}]
+f:["$","script","script-1",{"src":"/stytch-benchmark/_next/static/chunks/be08138953094657.js","async":true}]
+10:["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]
+13:null
