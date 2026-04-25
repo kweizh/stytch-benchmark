@@ -12,6 +12,7 @@ uvx \
   --with pytest-json-ctrf==0.3.5 \
   --with pochi-verifier \
   --with requests \
+  --with stytch \
   pytest --ctrf /logs/verifier/ctrf.json /tests/test_final_state.py -rA
 if [ $? -eq 0 ]; then
   echo 1 > /logs/verifier/reward.txt
