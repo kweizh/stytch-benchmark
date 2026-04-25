@@ -7,7 +7,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 PROJECT_DIR = "/home/user/app"
-TRIAL_ID_FILE = "/logs/trial_id"
+TRIAL_ID_FILE = "/logs/artifacts/trial_id"
 
 def get_trial_id():
     if os.path.exists(TRIAL_ID_FILE):
@@ -38,7 +38,7 @@ def stytch_session():
     resp = requests.post(f"{base_url}/organizations", json={
         "organization_name": org_slug,
         "organization_slug": org_slug,
-        "auth_methods": "all_allowed"
+        "auth_methods": "ALL_ALLOWED"
     }, auth=auth)
     assert resp.status_code in [200, 201], f"Failed to create org: {resp.text}"
     org_id = resp.json()["organization"]["organization_id"]
@@ -63,9 +63,9 @@ def stytch_session():
         "password": "Password123!"
     }, auth=auth)
     assert resp.status_code == 200, f"Failed to authenticate: {resp.text}"
-    
+
     session_jwt = resp.json()["session_jwt"]
-    
+
     return {
         "session_jwt": session_jwt,
         "member_id": member_id,
@@ -81,14 +81,14 @@ def start_app():
         stderr=subprocess.PIPE,
         preexec_fn=os.setsid
     )
-    
+
     if not wait_for_port(3000):
         import signal
         os.killpg(os.getpgid(process.pid), signal.SIGTERM)
         pytest.fail("App failed to start and listen on port 3000.")
-    
+
     yield
-    
+
     import signal
     os.killpg(os.getpgid(process.pid), signal.SIGTERM)
     process.wait(timeout=10)
@@ -96,10 +96,10 @@ def start_app():
 def test_valid_jwt(stytch_session, start_app):
     url = "http://localhost:3000/validate"
     payload = {"session_jwt": stytch_session["session_jwt"]}
-    
+
     resp = requests.post(url, json=payload)
     assert resp.status_code == 200, f"Expected 200 OK, got {resp.status_code}: {resp.text}"
-    
+
     data = resp.json()
     assert data.get("member_id") == stytch_session["member_id"], \
         f"Expected member_id {stytch_session['member_id']}, got {data.get('member_id')}"
@@ -107,7 +107,7 @@ def test_valid_jwt(stytch_session, start_app):
 def test_invalid_jwt(start_app):
     url = "http://localhost:3000/validate"
     payload = {"session_jwt": "invalid.jwt.token"}
-    
+
     resp = requests.post(url, json=payload)
     assert resp.status_code == 401, f"Expected 401 Unauthorized for invalid JWT, got {resp.status_code}"
 
@@ -117,12 +117,12 @@ def test_uses_local_validation():
         js_files = [f for f in os.listdir(PROJECT_DIR) if f.endswith(".js")]
         assert len(js_files) > 0, "No JavaScript files found in the project directory."
         script_path = os.path.join(PROJECT_DIR, js_files[0])
-        
+
     with open(script_path, "r") as f:
         content = f.read()
-        
+
     has_local = "authenticateJwtLocal" in content
     has_custom_jwks = "jwks" in content.lower() or "verify" in content.lower()
-    
+
     assert has_local or has_custom_jwks, \
         "Expected the code to use 'authenticateJwtLocal' or a custom JWKS validation method."

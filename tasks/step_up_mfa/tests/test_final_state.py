@@ -21,7 +21,7 @@ def start_app():
     # Install dependencies first if needed
     if not os.path.exists(os.path.join(PROJECT_DIR, "node_modules")):
         subprocess.run(["npm", "install"], cwd=PROJECT_DIR, check=True)
-        
+
     process = subprocess.Popen(
         ["node", "index.js"],
         cwd=PROJECT_DIR,
@@ -29,7 +29,7 @@ def start_app():
         stderr=subprocess.PIPE,
         preexec_fn=os.setsid
     )
-    
+
     # wait for port 3000
     start_time = time.time()
     ready = False
@@ -39,14 +39,14 @@ def start_app():
                 ready = True
                 break
         time.sleep(1)
-        
+
     if not ready:
         import signal
         os.killpg(os.getpgid(process.pid), signal.SIGTERM)
         pytest.fail("App failed to start and listen on port 3000")
-        
+
     yield
-    
+
     import signal
     os.killpg(os.getpgid(process.pid), signal.SIGTERM)
     process.wait(timeout=5)
@@ -76,7 +76,7 @@ def test_one_factor_session(start_app, stytch_client):
         timeout=5
     )
     assert resp.status_code == 403, f"Expected 403 for 1-factor token, got {resp.status_code}"
-    
+
     data = resp.json()
     assert "error" in data, "Expected 'error' in response JSON"
 
@@ -94,10 +94,10 @@ def test_two_factor_session(start_app, stytch_client):
     # Add second factor (TOTP)
     totp_resp = stytch_client.totps.create(user_id=user_id)
     secret = totp_resp.secret
-    
+
     totp = pyotp.TOTP(secret)
     code = totp.now()
-    
+
     auth_resp = stytch_client.totps.authenticate(
         user_id=user_id,
         totp_code=code,
@@ -112,6 +112,6 @@ def test_two_factor_session(start_app, stytch_client):
         timeout=5
     )
     assert resp.status_code == 200, f"Expected 200 for 2-factor token, got {resp.status_code}"
-    
+
     data = resp.json()
     assert data.get("success") is True, f"Expected {{'success': True}}, got {data}"

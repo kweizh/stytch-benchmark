@@ -6,7 +6,7 @@ You have a Stytch B2B project. You need to create a new B2B organization and the
 ## Requirements
 - Write a Python script `update_org.py` that uses the `stytch` Python library.
 - Read `STYTCH_B2B_PROJECT_ID` and `STYTCH_B2B_SECRET` from environment variables to initialize the `stytch.B2BClient`.
-- Read the `trial_id` from `/logs/trial_id`.
+- Read the `trial_id` from `/logs/artifacts/trial_id`.
 - Create a new B2B organization with the name `test-org-${trial_id}` and slug `test-org-${trial_id}`.
 - Update the organization's settings so that `auth_methods` is set to `RESTRICTED` and `allowed_auth_methods` is set to `["sso", "magic_link"]`.
 

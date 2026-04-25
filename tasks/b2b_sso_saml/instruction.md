@@ -4,7 +4,7 @@
 Stytch provides robust B2B authentication features including enterprise SSO. Your task is to write a Python script that creates a new B2B organization and configures a SAML connection for it using the Stytch B2B API.
 
 ## Requirements
-- Read the `trial_id` from `/logs/trial_id`.
+- Read the `trial_id` from `/logs/artifacts/trial_id`.
 - Create a new Stytch B2B organization with the name `SAML Org ${trial_id}` and the slug `saml-org-${trial_id}`.
 - Create a SAML connection for this organization.
 - Update the SAML connection with the IdP SSO URL `https://idp.example.com/sso` and a dummy IdP entity ID `https://idp.example.com/entity`.
