@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777135565.3107822,
+            "stop": 1777135566.010727
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_organization_auth_methods_updated",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.4563255230896175,
+                "start": 1777135565.5277214,
+                "stop": 1777135566.010537,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_organization_auth_methods_updated():\n        trial_id = get_trial_id()\n        org_slug = f\"test-org-{trial_id}\"\n    \n        project_id = os.environ.get(\"STYTCH_B2B_PROJECT_ID\")\n        secret = os.environ.get(\"STYTCH_B2B_SECRET\")\n    \n        assert project_id and secret, \"Stytch B2B credentials are not set in environment variables.\"\n    \n        # Use Stytch API to search for the organization\n        response = requests.post(\n            \"https://test.stytch.com/v1/b2b/organizations/search\",\n            json={\n                \"query\": {\n                    \"operator\": \"AND\",\n                    \"operands\": [\n                        {\n                            \"filter_name\": \"organization_slug\",\n                            \"filter_value\": org_slug\n                        }\n                    ]\n                }\n            },\n            auth=HTTPBasicAuth(project_id, secret)\n        )\n    \n>       assert response.status_code == 200, f\"Stytch API request failed: {response.text}\"\nE       AssertionError: Stytch API request failed: {\"status_code\":400,\"request_id\":\"request-id-test-757d6272-e91b-4865-abb1-3270fe779f7b\",\"error_type\":\"organization_search_filter_name_not_recognized\",\"error_message\":\"The organization search operand filter_name was not recognized. Please see https://stytch.com/docs/b2b/api/search-organizations for request schema details and examples.\",\"error_url\":\"https://stytch.com/docs/b2b/api/errors/400#organization_search_filter_name_not_recognized\"}\nE       assert 400 == 200\nE        +  where 400 = <Response [400]>.status_code\n\ntests/test_final_state.py:39: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

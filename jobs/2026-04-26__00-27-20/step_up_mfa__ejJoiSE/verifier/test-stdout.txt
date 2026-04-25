@@ -1,0 +1,131 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+Downloading aiohttp (1.7MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading cryptography (4.5MiB)
+ Downloading pydantic-core
+ Downloading pygments
+ Downloading aiohttp
+ Downloading cryptography
+Installed 31 packages in 84ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 3 items
+
+tests/test_final_state.py .FF                                            [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_one_factor_session ____________________________
+
+start_app = None
+stytch_client = <stytch.consumer.client.Client object at 0x77985c4c30b0>
+
+    def test_one_factor_session(start_app, stytch_client):
+        """Priority 1: Verify 403 for 1-factor session."""
+        email = f"test-{time.time()}@example.com"
+>       pwd_resp = stytch_client.passwords.create(
+            email=email,
+            password="Password123!",
+            session_duration_minutes=60
+        )
+
+tests/test_final_state.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+root/.cache/uv/archive-v0/N14XqVw7F4imPNo5eqnhN/lib/python3.12/site-packages/stytch/consumer/api/passwords.py:114: in create
+    return CreateResponse.from_json(res.response.status_code, res.json)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'stytch.consumer.models.passwords.CreateResponse'>
+status_code = 400
+json = {'error_message': "password doesn't meet our strength requirements.", 'error_type': 'weak_password', 'error_url': 'htt...ytch.com/docs/api/errors/400#weak_password', 'request_id': 'request-id-test-e6964239-45af-4c03-956b-37e14f3f7c8d', ...}
+
+    @classmethod
+    def from_json(cls, status_code: int, json: Dict[str, Any]):
+        try:
+            if status_code >= 400:
+                raise ResponseError()
+            return cls(**json)
+        except ResponseError:
+            # We need to be careful in case this one *also* fails
+            try:
+                details = StytchErrorDetails(**json)
+                details.original_json = json
+                # Don't raise from here because then we trigger our
+                # own fallback exception handling!
+            except Exception as e:
+                details = StytchErrorDetails.from_unknown(status_code, json)
+                raise StytchError(details) from e
+>           raise StytchError(details) from None
+E           stytch.core.response_base.StytchError: status_code=400 request_id='request-id-test-e6964239-45af-4c03-956b-37e14f3f7c8d' error_type='weak_password' error_message="password doesn't meet our strength requirements." error_url='https://stytch.com/docs/api/errors/400#weak_password' original_json={'status_code': 400, 'request_id': 'request-id-test-e6964239-45af-4c03-956b-37e14f3f7c8d', 'error_type': 'weak_password', 'error_message': "password doesn't meet our strength requirements.", 'error_url': 'https://stytch.com/docs/api/errors/400#weak_password'}
+
+root/.cache/uv/archive-v0/N14XqVw7F4imPNo5eqnhN/lib/python3.12/site-packages/stytch/core/response_base.py:33: StytchError
+___________________________ test_two_factor_session ____________________________
+
+start_app = None
+stytch_client = <stytch.consumer.client.Client object at 0x77985c4c30b0>
+
+    def test_two_factor_session(start_app, stytch_client):
+        """Priority 1: Verify 200 for 2-factor session."""
+        email = f"test-{time.time()}@example.com"
+>       pwd_resp = stytch_client.passwords.create(
+            email=email,
+            password="Password123!",
+            session_duration_minutes=60
+        )
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+root/.cache/uv/archive-v0/N14XqVw7F4imPNo5eqnhN/lib/python3.12/site-packages/stytch/consumer/api/passwords.py:114: in create
+    return CreateResponse.from_json(res.response.status_code, res.json)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'stytch.consumer.models.passwords.CreateResponse'>
+status_code = 400
+json = {'error_message': "password doesn't meet our strength requirements.", 'error_type': 'weak_password', 'error_url': 'htt...ytch.com/docs/api/errors/400#weak_password', 'request_id': 'request-id-test-82286c4f-b24a-42e5-a714-44c48a295710', ...}
+
+    @classmethod
+    def from_json(cls, status_code: int, json: Dict[str, Any]):
+        try:
+            if status_code >= 400:
+                raise ResponseError()
+            return cls(**json)
+        except ResponseError:
+            # We need to be careful in case this one *also* fails
+            try:
+                details = StytchErrorDetails(**json)
+                details.original_json = json
+                # Don't raise from here because then we trigger our
+                # own fallback exception handling!
+            except Exception as e:
+                details = StytchErrorDetails.from_unknown(status_code, json)
+                raise StytchError(details) from e
+>           raise StytchError(details) from None
+E           stytch.core.response_base.StytchError: status_code=400 request_id='request-id-test-82286c4f-b24a-42e5-a714-44c48a295710' error_type='weak_password' error_message="password doesn't meet our strength requirements." error_url='https://stytch.com/docs/api/errors/400#weak_password' original_json={'status_code': 400, 'request_id': 'request-id-test-82286c4f-b24a-42e5-a714-44c48a295710', 'error_type': 'weak_password', 'error_message': "password doesn't meet our strength requirements.", 'error_url': 'https://stytch.com/docs/api/errors/400#weak_password'}
+
+root/.cache/uv/archive-v0/N14XqVw7F4imPNo5eqnhN/lib/python3.12/site-packages/stytch/core/response_base.py:33: StytchError
+=============================== warnings summary ===============================
+test_final_state.py::test_one_factor_session
+  /root/.cache/uv/archive-v0/N14XqVw7F4imPNo5eqnhN/lib/python3.12/site-packages/stytch/core/client_base.py:76: UserWarning: Test version of Stytch not intended for production use
+    warnings.warn("Test version of Stytch not intended for production use")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_invalid_session_token
+FAILED tests/test_final_state.py::test_one_factor_session - stytch.core.respo...
+FAILED tests/test_final_state.py::test_two_factor_session - stytch.core.respo...
+==================== 2 failed, 1 passed, 1 warning in 4.23s ====================

@@ -1,0 +1,45 @@
+{
+    "id": "585d63e1-d685-4d01-a830-08b6d24e3e1c",
+    "started_at": "2026-04-26T00:47:00.784472",
+    "finished_at": "2026-04-26T00:56:25.865095",
+    "n_total_trials": 15,
+    "stats": {
+        "n_trials": 15,
+        "n_errors": 0,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 15,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "b2c_magic_link__4ntQqwE",
+                            "mcp_auth__FPdX6VW",
+                            "otp_sms__Lqo7xFF",
+                            "passkeys_auth__9gSeBBj",
+                            "session_mgmt__eHZPxEP",
+                            "b2c_totp__DEFL7tW",
+                            "b2b_fraud_aware_login__fxJRzCs",
+                            "b2b_organization_search__kt46op2",
+                            "b2b_delete_organization__y2Zdof7"
+                        ],
+                        "0.0": [
+                            "b2b_scim__Hdt5VcP",
+                            "b2c_session_revoke__bDgJcw6",
+                            "step_up_mfa__HQgAAMf",
+                            "b2b_jwt_validator__nzDmbtu",
+                            "b2b_sso_saml__4TBmbZe",
+                            "b2b_update_organization__GcRxW7L"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

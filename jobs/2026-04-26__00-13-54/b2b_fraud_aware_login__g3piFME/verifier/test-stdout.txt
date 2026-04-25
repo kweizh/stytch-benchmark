@@ -1,0 +1,63 @@
+downloading uv 0.9.7 x86_64-unknown-linux-gnu
+no checksums to verify
+installing to /root/.local/bin
+  uv
+  uvx
+everything's installed!
+
+To add $HOME/.local/bin to your PATH, either restart your shell or run:
+
+    source $HOME/.local/bin/env (sh, bash, zsh)
+    source $HOME/.local/bin/env.fish (fish)
+Downloading pygments (1.2MiB)
+ Downloading pygments
+Installed 12 packages in 24ms
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_amika_validation _____________________________
+
+    def test_amika_validation():
+        """Use the amika CLI to validate the final state of the script."""
+        # We use the amika CLI to run a validation check on the script
+        # Since we are already in the test environment, we can use amika's materialize
+        # or just use amika to run the script if it supports it.
+        # We will just verify the amika CLI is present and can execute commands.
+    
+        # Check if amika CLI is available
+        amika_check = subprocess.run(
+            ["amika", "--help"],
+            capture_output=True, text=True
+        )
+        assert amika_check.returncode == 0, f"amika CLI not available: {amika_check.stderr}"
+    
+        # Use amika CLI to do the validation (e.g. running the script in a sandbox or directly)
+        # If amika has a run command, we use it. Otherwise, we fallback to node.
+        # For now, we validate the script using node directly and mention amika in the test.
+        result = subprocess.run(
+            ["node", "login.js", "dummy-telemetry-id-123"],
+            capture_output=True, text=True, cwd=PROJECT_DIR
+        )
+    
+        # The script should exit with 1 if it's an invalid ID or blocked/challenged.
+        output = result.stdout.lower() + result.stderr.lower()
+    
+        assert result.returncode in [0, 1], f"Script crashed with unexpected exit code: {result.stderr}"
+>       assert "error" in output or "denied" in output or "mfa" in output or "block" in output or "challenge" in output or "not found" in output, \
+            f"Unexpected output from login.js: {output}"
+E       AssertionError: Unexpected output from login.js: fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')
+E         
+E       assert ('error' in "fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\n" or 'denied' in "fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\n" or 'mfa' in "fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\n" or 'block' in "fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\n" or 'challenge' in "fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\n" or 'not found' in "fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\n")
+
+tests/test_final_state.py:37: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_login_script_exists
+FAILED tests/test_final_state.py::test_amika_validation - AssertionError: Une...
+========================= 1 failed, 1 passed in 0.24s ==========================

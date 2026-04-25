@@ -1,0 +1,48 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777134130.4869223,
+            "stop": 1777134133.4857051
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_valid_jwt",
+                "status": "failed",
+                "duration": 0.6130782250547782,
+                "start": 1777134130.7919183,
+                "stop": 1777134131.4376678,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def stytch_session():\n        trial_id = get_trial_id()\n        project_id = os.environ.get(\"STYTCH_B2B_PROJECT_ID\")\n        secret = os.environ.get(\"STYTCH_B2B_SECRET\")\n        assert project_id and secret, \"Stytch B2B credentials are missing.\"\n    \n        auth = HTTPBasicAuth(project_id, secret)\n        base_url = \"https://test.stytch.com/v1/b2b\"\n    \n        org_slug = f\"test-jwt-org-{trial_id}\"\n        resp = requests.post(f\"{base_url}/organizations\", json={\n            \"organization_name\": org_slug,\n            \"organization_slug\": org_slug,\n            \"auth_methods\": \"all_allowed\"\n        }, auth=auth)\n>       assert resp.status_code in [200, 201], f\"Failed to create org: {resp.text}\"\nE       AssertionError: Failed to create org: {\"status_code\":400,\"request_id\":\"request-id-test-cfb378a1-1e39-4d17-a326-22625c544bfe\",\"error_type\":\"organization_slug_already_used\",\"error_message\":\"The provided organization_slug is already used in another organization.\",\"error_url\":\"https://stytch.com/docs/b2b/api/errors/400#organization_slug_already_used\"}\nE       assert 400 in [200, 201]\nE        +  where 400 = <Response [400]>.status_code\n\n/tests/test_final_state.py:43: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_jwt",
+                "status": "passed",
+                "duration": 2.0410911249928176,
+                "start": 1777134131.4379158,
+                "stop": 1777134133.4797823,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_uses_local_validation",
+                "status": "passed",
+                "duration": 0.004984200117178261,
+                "start": 1777134133.480247,
+                "stop": 1777134133.4853926,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

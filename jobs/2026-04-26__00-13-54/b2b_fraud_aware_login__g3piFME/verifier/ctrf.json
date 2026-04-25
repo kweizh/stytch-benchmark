@@ -1,0 +1,41 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777134035.3827038,
+            "stop": 1777134035.6257484
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_login_script_exists",
+                "status": "passed",
+                "duration": 0.0005168509669601917,
+                "start": 1777134035.3972335,
+                "stop": 1777134035.3979726,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_amika_validation",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.21130995301064104,
+                "start": 1777134035.3982444,
+                "stop": 1777134035.6255174,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_amika_validation():\n        \"\"\"Use the amika CLI to validate the final state of the script.\"\"\"\n        # We use the amika CLI to run a validation check on the script\n        # Since we are already in the test environment, we can use amika's materialize\n        # or just use amika to run the script if it supports it.\n        # We will just verify the amika CLI is present and can execute commands.\n    \n        # Check if amika CLI is available\n        amika_check = subprocess.run(\n            [\"amika\", \"--help\"],\n            capture_output=True, text=True\n        )\n        assert amika_check.returncode == 0, f\"amika CLI not available: {amika_check.stderr}\"\n    \n        # Use amika CLI to do the validation (e.g. running the script in a sandbox or directly)\n        # If amika has a run command, we use it. Otherwise, we fallback to node.\n        # For now, we validate the script using node directly and mention amika in the test.\n        result = subprocess.run(\n            [\"node\", \"login.js\", \"dummy-telemetry-id-123\"],\n            capture_output=True, text=True, cwd=PROJECT_DIR\n        )\n    \n        # The script should exit with 1 if it's an invalid ID or blocked/challenged.\n        output = result.stdout.lower() + result.stderr.lower()\n    \n        assert result.returncode in [0, 1], f\"Script crashed with unexpected exit code: {result.stderr}\"\n>       assert \"error\" in output or \"denied\" in output or \"mfa\" in output or \"block\" in output or \"challenge\" in output or \"not found\" in output, \\\n            f\"Unexpected output from login.js: {output}\"\nE       AssertionError: Unexpected output from login.js: fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\nE         \nE       assert ('error' in \"fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\\n\" or 'denied' in \"fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\\n\" or 'mfa' in \"fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\\n\" or 'block' in \"fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\\n\" or 'challenge' in \"fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\\n\" or 'not found' in \"fingerprint lookup failed: cannot read properties of undefined (reading 'lookup')\\n\")\n\ntests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

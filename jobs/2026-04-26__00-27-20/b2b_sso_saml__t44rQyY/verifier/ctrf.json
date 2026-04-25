@@ -1,0 +1,40 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777135055.4214618,
+            "stop": 1777135055.6622663
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_organization_is_created",
+                "status": "failed",
+                "duration": 0.01401233405340463,
+                "start": 1777135055.6186864,
+                "stop": 1777135055.6586819,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\", autouse=True)\n    def setup_and_run_script():\n        \"\"\"Run the user script before running verifications.\"\"\"\n        assert os.path.isfile(SCRIPT_FILE), f\"The script {SCRIPT_FILE} does not exist.\"\n    \n        result = subprocess.run(\n            [\"python3\", \"setup_saml.py\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"The script failed to execute. stderr: {result.stderr}\"\nE       AssertionError: The script failed to execute. stderr: Traceback (most recent call last):\nE           File \"/home/user/workspace/setup_saml.py\", line 3, in <module>\nE             import stytch\nE         ModuleNotFoundError: No module named 'stytch'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', 'setup_saml.py'], returncode=1, stdout='', stderr='Traceback (most recent call last)...r/workspace/setup_saml.py\", line 3, in <module>\\n    import stytch\\nModuleNotFoundError: No module named \\'stytch\\'\\n').returncode\n\ntests/test_final_state.py:26: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_saml_connection_is_configured",
+                "status": "failed",
+                "duration": 0.00029926502611488104,
+                "start": 1777135055.6589122,
+                "stop": 1777135055.6620731,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\", autouse=True)\n    def setup_and_run_script():\n        \"\"\"Run the user script before running verifications.\"\"\"\n        assert os.path.isfile(SCRIPT_FILE), f\"The script {SCRIPT_FILE} does not exist.\"\n    \n        result = subprocess.run(\n            [\"python3\", \"setup_saml.py\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n>       assert result.returncode == 0, f\"The script failed to execute. stderr: {result.stderr}\"\nE       AssertionError: The script failed to execute. stderr: Traceback (most recent call last):\nE           File \"/home/user/workspace/setup_saml.py\", line 3, in <module>\nE             import stytch\nE         ModuleNotFoundError: No module named 'stytch'\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', 'setup_saml.py'], returncode=1, stdout='', stderr='Traceback (most recent call last)...r/workspace/setup_saml.py\", line 3, in <module>\\n    import stytch\\nModuleNotFoundError: No module named \\'stytch\\'\\n').returncode\n\ntests/test_final_state.py:26: AssertionError"
+            }
+        ]
+    }
+}

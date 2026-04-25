@@ -1,0 +1,44 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777134225.0329235,
+            "stop": 1777134225.3063731
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists_and_contains_org_id",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000946381944231689,
+                "start": 1777134225.2726219,
+                "stop": 1777134225.303043,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_exists_and_contains_org_id():\n>       assert os.path.isfile(ORG_ID_FILE), f\"Expected {ORG_ID_FILE} to exist.\"\nE       AssertionError: Expected /logs/org_id.txt to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7414d9ef8220>('/logs/org_id.txt')\nE        +    where <function isfile at 0x7414d9ef8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_organization_is_deleted_via_amika_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007053210865706205,
+                "start": 1777134225.3033133,
+                "stop": 1777134225.3061404,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_organization_is_deleted_via_amika_api():\n        \"\"\"Use the amika API (simulated via requests) to validate the organization is deleted.\"\"\"\n>       assert os.path.isfile(ORG_ID_FILE), f\"Expected {ORG_ID_FILE} to exist.\"\nE       AssertionError: Expected /logs/org_id.txt to exist.\nE       assert False\nE        +  where False = <function isfile at 0x7414d9ef8220>('/logs/org_id.txt')\nE        +    where <function isfile at 0x7414d9ef8220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

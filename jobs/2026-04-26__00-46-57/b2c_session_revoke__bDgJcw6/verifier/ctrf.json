@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777135876.8096266,
+            "stop": 1777135880.4176035
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_session_revocation_blocklist",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 3.3747398138511926,
+                "start": 1777135876.999501,
+                "stop": 1777135880.4172719,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_session_revocation_blocklist(start_app):\n        base_url = \"http://localhost:3000\"\n        session = requests.Session()\n    \n        # 1. Register\n        email = f\"test-{uuid.uuid4()}@example.com\"\n        password = f\"{uuid.uuid4()}\".replace(\"-\", \"\").upper()[:16]\n        resp = session.post(f\"{base_url}/register\", json={\"email\": email, \"password\": password})\n        assert resp.status_code == 200, f\"Register failed: {resp.text}\"\n    \n        # Extract cookies\n        cookies = session.cookies.get_dict()\n        assert \"stytch_session\" in cookies, \"stytch_session cookie missing after register\"\n        assert \"stytch_session_jwt\" in cookies, \"stytch_session_jwt cookie missing after register\"\n    \n        jwt_cookie = cookies[\"stytch_session_jwt\"]\n    \n        # 2. Access profile\n        resp = session.get(f\"{base_url}/profile\")\n>       assert resp.status_code == 200, f\"Profile access failed: {resp.text}\"\nE       AssertionError: Profile access failed: {\"error\":\"Invalid JWT\"}\nE       assert 401 == 200\nE        +  where 401 = <Response [401]>.status_code\n\ntests/test_final_state.py:64: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777135599.3768306,
+            "stop": 1777135601.5587485
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_valid_jwt",
+                "status": "failed",
+                "duration": 1.842514623887837,
+                "start": 1777135599.6655185,
+                "stop": 1777135601.5425541,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def stytch_session():\n        trial_id = get_trial_id()\n        project_id = os.environ.get(\"STYTCH_B2B_PROJECT_ID\")\n        secret = os.environ.get(\"STYTCH_B2B_SECRET\")\n        assert project_id and secret, \"Stytch B2B credentials are missing.\"\n    \n        auth = HTTPBasicAuth(project_id, secret)\n        base_url = \"https://test.stytch.com/v1/b2b\"\n    \n        org_slug = f\"test-jwt-org-{trial_id}\"\n        resp = requests.post(f\"{base_url}/organizations\", json={\n            \"organization_name\": org_slug,\n            \"organization_slug\": org_slug,\n            \"auth_methods\": \"ALL_ALLOWED\"\n        }, auth=auth)\n        assert resp.status_code in [200, 201], f\"Failed to create org: {resp.text}\"\n        org_id = resp.json()[\"organization\"][\"organization_id\"]\n    \n        email = f\"member-{trial_id}@example.com\"\n        resp = requests.post(f\"{base_url}/organizations/{org_id}/members\", json={\n            \"email_address\": email\n        }, auth=auth)\n        assert resp.status_code in [200, 201], f\"Failed to create member: {resp.text}\"\n        member_id = resp.json()[\"member_id\"]\n    \n        resp = requests.post(f\"{base_url}/passwords\", json={\n            \"organization_id\": org_id,\n            \"email_address\": email,\n            \"password\": \"Password123!\"\n        }, auth=auth)\n>       assert resp.status_code in [200, 201], f\"Failed to set password: {resp.text}\"\nE       AssertionError: Failed to set password: {\"status_code\":404,\"request_id\":\"request-id-test-2b52117e-ae39-4804-8ae2-701c6436d0d8\",\"error_type\":\"route_not_found\",\"error_message\":\"The route provided is not supported.\",\"error_url\":\"https://stytch.com/docs/api/errors/404#route_not_found\"}\nE       assert 404 in [200, 201]\nE        +  where 404 = <Response [404]>.status_code\n\n/tests/test_final_state.py:58: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_jwt",
+                "status": "passed",
+                "duration": 0.012768268934451044,
+                "start": 1777135601.5427902,
+                "stop": 1777135601.5561001,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_uses_local_validation",
+                "status": "passed",
+                "duration": 0.0018190491246059537,
+                "start": 1777135601.556558,
+                "stop": 1777135601.558506,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

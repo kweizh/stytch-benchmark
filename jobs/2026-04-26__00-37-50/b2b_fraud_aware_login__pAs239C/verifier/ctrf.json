@@ -1,0 +1,38 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777135444.1763523,
+            "stop": 1777135444.9316723
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_login_script_exists",
+                "status": "passed",
+                "duration": 0.0005072150379419327,
+                "start": 1777135444.1888437,
+                "stop": 1777135444.1895826,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_amika_validation",
+                "status": "passed",
+                "duration": 0.74145422806032,
+                "start": 1777135444.1897767,
+                "stop": 1777135444.931476,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

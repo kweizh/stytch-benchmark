@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777134567.13365,
+            "stop": 1777134574.322054
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_authenticate_start",
+                "status": "passed",
+                "duration": 6.5132067911326885,
+                "start": 1777134567.146387,
+                "stop": 1777134573.6616268,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_authenticate",
+                "status": "passed",
+                "duration": 0.21332657302264124,
+                "start": 1777134573.6627338,
+                "stop": 1777134573.8763797,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_register_start",
+                "status": "passed",
+                "duration": 0.20949554804246873,
+                "start": 1777134573.8766232,
+                "stop": 1777134574.086359,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_register",
+                "status": "passed",
+                "duration": 0.23403623199556023,
+                "start": 1777134574.0865858,
+                "stop": 1777134574.321095,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

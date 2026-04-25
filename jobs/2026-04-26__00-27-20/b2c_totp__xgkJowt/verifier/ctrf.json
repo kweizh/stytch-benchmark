@@ -1,0 +1,29 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 1,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777134934.0252447,
+            "stop": 1777134937.2588742
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_totp_flow",
+                "status": "passed",
+                "duration": 3.2102115681627765,
+                "start": 1777134934.046613,
+                "stop": 1777134937.2585213,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}
